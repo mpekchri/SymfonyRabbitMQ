@@ -4,33 +4,44 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\RequestsHandler;
 
+
+/**
+  * A Controller which provides handler functions
+  * for endpoints specified with a Route annotation
+  */
 class BasicController extends AbstractController
 {
     /**
-     * @Route("/basic", name="basic")
+      * @var RequestsHandler
+      */
+    private $reqHandler;
+
+    public function __construct(RequestsHandler $reqHandler){
+      $this->reqHandler = $reqHandler;
+    }
+
+    /**
+     * @Route("/basic", name="api.request.single")
+     * @Route("/basic/{num}", name="api.request.multiple")
      */
-    public function index()
+    public function index(int $num = 1)
     {
-      $url = 'https://a831bqiv1d.execute-api.eu-west-1.amazonaws.com/dev/results';
-      $options = array(
-          'http' => array(
-              'header'  => "Content-type: application/json\r\n",
-              'method'  => 'GET',
-          )
-      );
-      $context  = stream_context_create($options);
-      $result = file_get_contents($url, false, $context);
-      if ($result === FALSE) {
-        /* Handle error */
-        $result = 'IT SHOULD RAISE AN EXCEPTION, SHOULDNT IT?';
-      }else{
-        $result = json_decode($result);
-      }
-      // \var_dump($result); die;
+      // send requests & receive results
+      // TO-DO : make it async.
+      $results = $this->reqHandler->makeRequests($num);
+
+      // TO-DO : serialize results
+
+      // TO-DO : send data to rabbitmq
+
+      // TO-DO : consume data from rabbitmq
+
+      // TO-DO : save data to database
 
       return $this->json([
-          'result' => $result,
+          'result' => $results,
       ]);
     }
 }
