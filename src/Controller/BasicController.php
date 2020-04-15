@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\RequestsHandler;
+use App\Service\RequestHandler;
 
 
 /**
@@ -14,11 +14,11 @@ use App\Service\RequestsHandler;
 class BasicController extends AbstractController
 {
     /**
-      * @var RequestsHandler
+      * @var RequestHandler
       */
     private $reqHandler;
 
-    public function __construct(RequestsHandler $reqHandler){
+    public function __construct(RequestHandler $reqHandler){
       $this->reqHandler = $reqHandler;
     }
 

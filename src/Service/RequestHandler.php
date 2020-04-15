@@ -2,13 +2,21 @@
 
 namespace App\Service;
 
+use App\Serializer\RequestSerializer;
+
 /**
   * A Service for sending requests and receiving responses at the given url.
   * It serves decoupling the request handling from controller logic.
   */
-class RequestsHandler
+class RequestHandler
 {
-  public function __construct(){
+  /**
+    * @var RequestSerializer
+    */
+  private $serializer;
+
+  public function __construct(RequestSerializer $serializer){
+    $this->serializer = $serializer;
     $this->url = 'https://a831bqiv1d.execute-api.eu-west-1.amazonaws.com/dev/results';
     $options = array(
         'http' => array(
@@ -26,7 +34,8 @@ class RequestsHandler
     */
   private function sendSingleRequest(){
     $result = file_get_contents($this->url, false, $this->context);
-    return $result !== FALSE ? json_decode($result, true) : null;
+    // return $result !== FALSE ? json_decode($result, true) : null;
+    return $result !== FALSE ? $this->serializer->deserialize($result) : null;
   }
 
   public function makeRequests(int $num_of_requests = 1){
