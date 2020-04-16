@@ -1,13 +1,13 @@
 old_sound_rabbit_mq:
   connections:
     default:
-          # url: '%env(RABBITMQ_URL)%'
-          host:     'candidatemq.n2g-dev.net'
-          port:     5672
-          user:     'cand_d4uf'
-          password: 'Yd6bCNQgWpx429zr'
-          vhost:    '/'
-          lazy:     true
+      # url: '%env(RABBITMQ_URL)%'
+      host:     'candidatemq.n2g-dev.net'
+      port:     5672
+      user:     'cand_d4uf'
+      password: 'Yd6bCNQgWpx429zr'
+      vhost:    '/'
+      lazy:     true
 
   producers:
     # use 'old_sound_rabbit_mq.messaging_producer' service to send data.
