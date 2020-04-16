@@ -50,9 +50,7 @@ class BasicController extends AbstractController
       // TO-DO : send data to rabbitmq
       $this->producer->publishMultipleMessage($results);
 
-      return $this->json([
-          'result' => 'publisher finished',
-      ]);
+      return $this->json($results);
     }
 
 

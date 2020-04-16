@@ -31,7 +31,7 @@ class MessageConsumer
     $connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->pass, $this->vhost);
     $channel = $connection->channel();
 
-    $channel->basic_consume($this->queue, false, false, false, false, array($this, 'parseMessage'));
+    $channel->basic_consume($this->queue, 'consumertag', false, false, false, false, array($this, 'parseMessage'));
     // $channel->basic_consume($this->queue, false, false, false, false, 'lela' );
 
     // register_shutdown_function(array($this, 'shutdown'), $channel, $connection);
@@ -44,12 +44,12 @@ class MessageConsumer
     $connection->close();
   }
 
-  private function parseMessage(AMQPMessage $message){
+  public function parseMessage(AMQPMessage $message){
     // it is configured to run each time a message arrives
     // handle message here -- json_decode($message->body)
 
     // echo json_decode($message->body);
-    dump(json_decode($message->body));
+    dump($message);
   }
 
   // private function shutdown($channel, $connection){

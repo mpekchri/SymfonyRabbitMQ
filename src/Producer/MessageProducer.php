@@ -50,7 +50,7 @@ class MessageProducer
     * Check the link: https://github.com/php-amqplib/php-amqplib for more info.
     */
   public function publishMultipleMessage($multipleData){
-    $connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->pass);
+    $connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->pass, $this->vhost);
     $channel = $connection->channel();
 
     foreach($multipleData as $data){
