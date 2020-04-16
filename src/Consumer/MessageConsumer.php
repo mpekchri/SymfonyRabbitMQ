@@ -48,8 +48,8 @@ class MessageConsumer
     // it is configured to run each time a message arrives
     // handle message here -- json_decode($message->body)
 
-    echo json_decode($message->body);
-    // dump(json_decode($message->body));
+    // echo json_decode($message->body);
+    dump(json_decode($message->body));
   }
 
   // private function shutdown($channel, $connection){
