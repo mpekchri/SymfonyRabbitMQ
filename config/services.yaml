@@ -25,5 +25,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Controller\BasicController: ['@App\Service\RequestHandler']
-    App\Service\RequestHandler: ['@App\Serializer\RequestSerializer']
+    App\Controller\BasicController:
+      - '@App\Service\RequestHandler'
+      - '@App\Producer\MessageProducer'
+      - '@App\Consumer\MessageConsumer'
+    App\Service\RequestHandler:
+      - '@App\Serializer\RequestSerializer'
