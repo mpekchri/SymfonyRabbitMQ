@@ -27,7 +27,7 @@ services:
     # please note that last definitions always *replace* previous ones
     App\Controller\BasicController: ['@App\Service\RequestHandler', '@App\Service\MessageHandler']
     App\Service\RequestHandler: ['@App\Serializer\RequestSerializer']
-    App\Rabbit\MessagingProducer: '@old_sound_rabbit_mq.messaging_producer'
+    App\Producer\MessageProducer: '@old_sound_rabbit_mq.messaging_producer'
 
     message_service:
         class: App\Consumer\MessageConsumer
