@@ -32,8 +32,6 @@ class BasicController extends AbstractController
       // TO-DO : make it async.
       $results = $this->reqHandler->makeRequests($num);
 
-      // TO-DO : serialize results
-
       // TO-DO : send data to rabbitmq
 
       // TO-DO : consume data from rabbitmq
