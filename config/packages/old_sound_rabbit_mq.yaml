@@ -1,15 +1,25 @@
 old_sound_rabbit_mq:
     connections:
         default:
-            url: '%env(RABBITMQ_URL)%'
-#    producers:
-#        # use 'old_sound_rabbit_mq.task_producer' service to send data.
-#        task:
-#            connection:       default
-#            exchange_options: { name: 'task', type: direct }
-#    consumers:
-#        task:
-#            connection:       default
-#            exchange_options: { name: 'task', type: direct }
-#            queue_options:    { name: 'task'}
-#            callback:         App\Consumer\TaskConsumer
+            # url: '%env(RABBITMQ_URL)%'
+            host:     candidatemq.n2g-dev.net
+            port:     5672
+            user:     cand_d4uf
+            password: Yd6bCNQgWpx429zr
+            vhost:    /
+            lazy:     true
+
+    producers:
+      # use 'old_sound_rabbit_mq.messaging_producer' service to send data.
+      messaging:
+        class: App\Producer\MessageProducer
+        connection:       default
+        exchange_options: { name: 'cand_d4uf', type: direct }
+
+    consumers:
+      messaging:
+        connection:       default
+        exchange_options: { name: 'cand_d4uf', type: direct }
+        queue_options:    { name: 'cand_d4uf_results'}
+        # callback:         App\Consumer\MessageConsumer
+        callback: message_service

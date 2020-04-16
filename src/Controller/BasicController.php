@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\RequestHandler;
+use App\Service\MessageHandler;
 
 
 /**
@@ -17,9 +18,14 @@ class BasicController extends AbstractController
       * @var RequestHandler
       */
     private $reqHandler;
+    /**
+      * @var MessageHandler
+      */
+    private $msgHandler;
 
-    public function __construct(RequestHandler $reqHandler){
+    public function __construct(RequestHandler $reqHandler, MessageHandler $msgHandler){
       $this->reqHandler = $reqHandler;
+      $this->msgHandler = $msgHandler;
     }
 
     /**
@@ -31,12 +37,14 @@ class BasicController extends AbstractController
       // send requests & receive results
       // TO-DO : make it async.
       $results = $this->reqHandler->makeRequests($num);
+      // DONE? : send data to rabbitmq
+      foreach($results as $msg_data){
+        $this->msgHandler->publishMessage($msg_data);
+      }
 
-      // TO-DO : send data to rabbitmq
+      // TO-DO : consume data from rabbitmq - LOUL not here bro
 
-      // TO-DO : consume data from rabbitmq
-
-      // TO-DO : save data to database
+      // TO-DO : save data to database - LOUL not here bro
 
       return $this->json([
           'result' => $results,
