@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\RequestHandler;
+use App\Message\MyMessage;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 
 /**
@@ -17,9 +19,15 @@ class BasicController extends AbstractController
       * @var RequestHandler
       */
     private $reqHandler;
+    /**
+      * @var MessageBusInterface
+      */
+    private $bus;
 
-    public function __construct(RequestHandler $reqHandler){
+
+    public function __construct(RequestHandler $reqHandler, MessageBusInterface $bus){
       $this->reqHandler = $reqHandler;
+      $this->bus = $bus;
     }
 
     /**
@@ -28,18 +36,25 @@ class BasicController extends AbstractController
      */
     public function index(int $num = 1)
     {
-      // send requests & receive results
-      // TO-DO : make it async.
-      $results = $this->reqHandler->makeRequests($num);
 
-      // TO-DO : send data to rabbitmq
+      $message = new MyMessage();
+      $this->bus->dispatch($message);
 
-      // TO-DO : consume data from rabbitmq
-
-      // TO-DO : save data to database
-
+      // // send requests & receive results
+      // // TO-DO : make it async.
+      // $results = $this->reqHandler->makeRequests($num);
+      //
+      // // TO-DO : send data to rabbitmq
+      //
+      // // TO-DO : consume data from rabbitmq
+      //
+      // // TO-DO : save data to database
+      //
+      // return $this->json([
+      //     'result' => $results,
+      // ]);
       return $this->json([
-          'result' => $results,
+        'lela?' => 'fysika'
       ]);
     }
 }
