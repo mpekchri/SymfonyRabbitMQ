@@ -16,6 +16,13 @@ framework:
                 queues:
                   cand_d4uf_results: ~
 
+            consumer_transport:
+              dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+              options:
+                auto_setup: false
+                queues:
+                  cand_d4uf_results: ~
+              serializer: App\Serializer\ExternalJsonSerializer
             # failed: 'doctrine://default?queue_name=failed'
             # sync: 'sync://'
 
