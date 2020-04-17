@@ -36,42 +36,20 @@ class BasicController extends AbstractController
      */
     public function index(int $num = 1)
     {
-
-      // $message = new MyMessage();
-      // for($i=0; $i<20; $i++){
-      //   $this->bus->dispatch($message,[
-      //     new AmqpStamp('rootingkey')
-      //   ]);
-      // }
-
-      // // send requests & receive results
-      // // TO-DO : make it async.
-      $results = $this->reqHandler->makeRequests($num);
-
-      // send data to rabbitmq
-      foreach($results as $msg_info){
-        $message = new MyMessage(
-          $msg_info['key'],
-          $msg_info['body'],
-        );
-        // dump($message); die;
+      $dummyLog = [];
+      // send requests, receive results, construct messages & send them to rabbtimq
+      for($i=0; $i<$num; $i++){
+        $deserializedResponse = $this->reqHandler->sendRequest();
+        $dummyLog[] = $deserializedResponse;
+        $message = new MyMessage($deserializedResponse['body']);
+        $rootingKey = $deserializedResponse['key'];
         $this->bus->dispatch($message,[
-          new AmqpStamp($message->getRootingKey())
-          // new AmqpStamp('9574384526953556788.260.10.1794.1024')
+          new AmqpStamp($rootingKey)
         ]);
       }
 
-      // // TO-DO : send data to rabbitmq
-      //
-      // // TO-DO : consume data from rabbitmq
-      //
-      // // TO-DO : save data to database
-      //
-      // return $this->json([
-      //     'result' => $results,
-      // ]);
       return $this->json([
-        'lela?' => 'fysika'
+        'http_response_contents' => $dummyLog
       ]);
     }
 }

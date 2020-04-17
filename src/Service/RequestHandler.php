@@ -32,7 +32,7 @@ class RequestHandler
     * receives response and convert it's data to json object, if valid.
     * TO-DO : use curl to make it asynchronous.
     */
-  private function sendSingleRequest(){
+  public function sendRequest(){
     $result = file_get_contents($this->url, false, $this->context);
     // return $result !== FALSE ? json_decode($result, true) : null;
     return $result !== FALSE ? $this->serializer->deserialize($result) : null;
@@ -41,7 +41,7 @@ class RequestHandler
   public function makeRequests(int $num_of_requests = 1){
     $results = [];
     for($i=0; $i<$num_of_requests; $i++){
-      $results[$i] = $this->sendSingleRequest();
+      $results[$i] = $this->sendRequest();
     }
     return $results;
   }

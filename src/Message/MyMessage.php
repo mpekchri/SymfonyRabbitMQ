@@ -5,20 +5,32 @@ namespace App\Message;
 class MyMessage
 {
   /**
-    * @var string
+    * @var int
     */
-  private $msg, $key;
+  private $value, $timestamp;
 
-  public function __construct($key, $body){
-    $this->key = $key;
-    $this->msg = $body;
+  public function __construct($data){
+    $this->value = $data['value'];
+    $this->timestamp = $data['timestamp'];
   }
 
-  public function getMessage(){
-    return $this->msg;
+  public function getValue() : int
+  {
+    return $this->value;
   }
 
-  public function getRootingKey(){
-    return $this->key;
+  public function getTimestamp() : int
+  {
+    return $this->timestamp;
+  }
+
+  public function setValue(int $value)
+  {
+    return $this->value = $value;
+  }
+
+  public function setTimestamp(int $timestamp)
+  {
+    return $this->timestamp = $timestamp;
   }
 }
