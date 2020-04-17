@@ -56,8 +56,8 @@ class BasicController extends AbstractController
         );
         // dump($message); die;
         $this->bus->dispatch($message,[
-          // new AmqpStamp($message->getRootingKey())
-          new AmqpStamp('9574384526953556788.260.10.1794.1024')
+          new AmqpStamp($message->getRootingKey())
+          // new AmqpStamp('9574384526953556788.260.10.1794.1024')
         ]);
       }
 
