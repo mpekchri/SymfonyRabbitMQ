@@ -13,8 +13,8 @@ framework:
                 exchange:
                   name: cand_d4uf
                   type: direct
-                queues:
-                  cand_d4uf_results: ~
+                # queues:
+                #   cand_d4uf_results: ~
 
             consumer_transport:
               dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
