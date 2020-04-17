@@ -11,7 +11,7 @@ class MyMessageHandler implements MessageHandlerInterface
 
   public function __invoke(MyMessage $msg)
   {
-    \sleep(6);
+    // \sleep(6);
     dump($msg->getMessage());
   }
 

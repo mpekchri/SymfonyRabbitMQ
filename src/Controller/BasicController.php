@@ -38,7 +38,7 @@ class BasicController extends AbstractController
     {
 
       $message = new MyMessage();
-      for($i=0; $i<100; $i++){
+      for($i=0; $i<20; $i++){
         $this->bus->dispatch($message,[
           new AmqpStamp('rootingkey')
         ]);

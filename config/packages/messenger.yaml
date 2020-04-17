@@ -8,10 +8,17 @@ framework:
             async:
               dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
               options:
-                queue_name: queuename
+                # port: 1883
+
+                # queue_name is specific to the doctrine transport
+                # queue_name: 'queuename'
+
+                # for AMQP send to a separate exchange then queue
                 exchange:
                   name: exchangename
                   type: direct
+                queues:
+                  queuename: ~
 
             # failed: 'doctrine://default?queue_name=failed'
             # sync: 'sync://'
