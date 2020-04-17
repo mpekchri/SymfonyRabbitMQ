@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Service\RequestHandler;
 use App\Message\MyMessage;
 use Symfony\Component\Messenger\MessageBusInterface;
-
+use Symfony\Component\Messenger\Transport\AmqpExt\AmqpStamp;
 
 /**
   * A Controller which provides handler functions
@@ -38,8 +38,10 @@ class BasicController extends AbstractController
     {
 
       $message = new MyMessage();
-      for($i=0; $i<10; $i++){
-        $this->bus->dispatch($message);
+      for($i=0; $i<100; $i++){
+        $this->bus->dispatch($message,[
+          new AmqpStamp('rootingkey')
+        ]);
       }
 
       // // send requests & receive results
