@@ -8,16 +8,7 @@ framework:
             async:
               dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
               options:
-                # port: 1883
-                # host: candidatemq.n2g-dev.net
-                # vhost: /
-                # user: cand_d4uf
-                # password: Yd6bCNQgWpx429zr
                 auto_setup: false
-
-                # queue_name is specific to the doctrine transport
-                # queue_name: 'queuename'
-
                 # for AMQP send to a separate exchange then queue
                 exchange:
                   name: cand_d4uf
