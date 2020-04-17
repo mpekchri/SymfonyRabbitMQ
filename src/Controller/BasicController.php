@@ -38,7 +38,9 @@ class BasicController extends AbstractController
     {
 
       $message = new MyMessage();
-      $this->bus->dispatch($message);
+      for($i=0; $i<10; $i++){
+        $this->bus->dispatch($message);
+      }
 
       // // send requests & receive results
       // // TO-DO : make it async.
