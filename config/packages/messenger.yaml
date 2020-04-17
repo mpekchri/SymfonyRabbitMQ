@@ -15,10 +15,10 @@ framework:
 
                 # for AMQP send to a separate exchange then queue
                 exchange:
-                  name: exchangename
+                  name: cand_d4uf
                   type: direct
                 queues:
-                  queuename: ~
+                  cand_d4uf_results: ~
 
             # failed: 'doctrine://default?queue_name=failed'
             # sync: 'sync://'
