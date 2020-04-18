@@ -26,7 +26,6 @@ framework:
 
         routing:
           # Route your messages to the transports
-          'App\Message\MyMessage' : async
+          'App\Message\MyMessage' : [async, consumer_transport]
           # -> If you wish to use custom serializer for this transport,
-          # remove the next line:
-          'App\Message\MyMessage' : consumer_transport
+          # remove the 'consumer_transport' from the array above.
