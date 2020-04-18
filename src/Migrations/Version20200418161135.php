@@ -22,7 +22,7 @@ final class Version20200418161135 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE net2_grid (id INT AUTO_INCREMENT NOT NULL, gatewai_ui VARCHAR(100) NOT NULL, profile VARCHAR(100) NOT NULL, endpoint VARCHAR(100) NOT NULL, cluster VARCHAR(100) NOT NULL, attribute VARCHAR(100) NOT NULL, timestamp INT NOT NULL, value INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE net2_grid (id INT AUTO_INCREMENT NOT NULL, gatewai_ui VARCHAR(100) NOT NULL, profile VARCHAR(100) NOT NULL, endpoint VARCHAR(100) NOT NULL, cluster VARCHAR(100) NOT NULL, attribute VARCHAR(100) NOT NULL, timestamp BIGINT NOT NULL, value BIGINT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         // $this->addSql('DROP TABLE messenger_messages');
     }
 
