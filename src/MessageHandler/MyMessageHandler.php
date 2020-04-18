@@ -38,7 +38,7 @@ class MyMessageHandler implements MessageHandlerInterface
     $this->manager->persist($net2grid);
     $this->manager->flush();
 
-    dump($msg);
+    // dump($msg);
     // dump('saved to db');
   }
 
