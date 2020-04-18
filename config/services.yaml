@@ -27,3 +27,4 @@ services:
     # please note that last definitions always *replace* previous ones
     App\Controller\BasicController: ['@App\Service\RequestHandler']
     App\Service\RequestHandler: ['@App\Serializer\RequestSerializer']
+    Doctrine\Persistence\ObjectManager: '@doctrine.orm.default_entity_manager'
