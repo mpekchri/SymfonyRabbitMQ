@@ -10,7 +10,9 @@ class RequestSerializer
   }
 
   public function serialize($obj){
-
+    throw new BadMethodCallException("This function is not implemented. \
+      No reason to use it, in this application, check for logical errors.
+    ");
   }
 
   public function deserialize($obj){
@@ -27,7 +29,8 @@ class RequestSerializer
 
     $message_body = [
       "value" => $data['value'],
-      "timestamp" => $data['timestamp']
+      "timestamp" => $data['timestamp'],
+      "rootingKey" => $message_key
     ];
     // dump($message_key);
 

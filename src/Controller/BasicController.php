@@ -37,7 +37,8 @@ class BasicController extends AbstractController
     public function index(int $num = 1)
     {
       $dummyLog = [];
-      // send requests, receive results, construct messages & send them to rabbtimq
+      // send requests, receive responses,
+      // construct messages & send them to rabbtimq
       for($i=0; $i<$num; $i++){
         $deserializedResponse = $this->reqHandler->sendRequest();
         $dummyLog[] = $deserializedResponse;

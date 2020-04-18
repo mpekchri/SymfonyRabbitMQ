@@ -65,7 +65,8 @@ class ExternalJsonSerializer implements SerializerInterface
         // recreate what the data originally looked like
         $data = [
           'value' => $message->getValue(),
-          'timestamp' => $message->getTimestamp()
+          'timestamp' => $message->getTimestamp(),
+          'rootingKey' => $message->getRootingKey()
         ];
     } else {
         throw new \Exception('Unsupported message class');
