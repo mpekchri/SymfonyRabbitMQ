@@ -35,9 +35,10 @@ class MyMessageHandler implements MessageHandlerInterface
     $net2grid->setCluster($keyInfo[3]);
     $net2grid->setAttribute($keyInfo[4]);
 
-    $this->manager->persist($net2grid);
-    $this->manager->flush();
+    // $this->manager->persist($net2grid);
+    // $this->manager->flush();
 
+    dump($msg);
     // dump('saved to db');
   }
 
