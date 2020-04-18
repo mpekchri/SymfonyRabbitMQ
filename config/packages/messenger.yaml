@@ -13,8 +13,6 @@ framework:
                 exchange:
                   name: cand_d4uf
                   type: direct
-                # queues:
-                #   cand_d4uf_results: ~
 
             consumer_transport:
               dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
@@ -22,11 +20,13 @@ framework:
                 auto_setup: false
                 queues:
                   cand_d4uf_results: ~
-              serializer: App\Serializer\ExternalJsonSerializer
-            # failed: 'doctrine://default?queue_name=failed'
-            # sync: 'sync://'
+              # -> If you wish to use custom serializer for this transport,
+              # uncomment the next line:
+              # serializer: App\Serializer\ExternalJsonSerializer
 
         routing:
-            # Route your messages to the transports
-            # 'App\Message\YourMessage': async
-            'App\Message\MyMessage' : async
+          # Route your messages to the transports
+          'App\Message\MyMessage' : async
+          # -> If you wish to use custom serializer for this transport,
+          # remove the next line:
+          'App\Message\MyMessage' : consumer_transport

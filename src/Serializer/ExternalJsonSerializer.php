@@ -7,38 +7,30 @@ use Symfony\Component\Messenger\Exception\MessageDecodingFailedException;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use App\Message\MyMessage;
 
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-
 class ExternalJsonSerializer implements SerializerInterface
 {
 
+  /**
+    * Each time a worker consumes a message from the queue,
+    * the transport calls decode() on its serializer.
+    *
+    * Since we define a custom decode(), we should convert
+    * the argument $encodedEnvelope into a Envelope instance.
+    * Meanwhile, we are able to handle
+    * the third party data contained in $encodedEnvelope['body'] as we wish.
+    *
+    * TODO : add exception handling & json validation.
+    * Current version of decode() is propably going to fail, without
+    * these implementations.
+    */
   public function decode(array $encodedEnvelope): Envelope
   {
 
     $body = $encodedEnvelope['body'];
     $headers = $encodedEnvelope['headers'];
 
-    // $data = json_decode($body, true);
-    // $message = new MyMessage($data);
-
-    // dump('====================== \n');
-    // dump( json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $body), true ) );
-    // // dump(($body));
-    // dump('====================== \n');
-
-    $encoders = [new JsonEncoder()];
-    $normalizers = [new ObjectNormalizer()];
-    $serializer = new Serializer($normalizers, $encoders);
-    $message = new MyMessage([
-      'value' => 0,
-      'timestamp' => 0
-    ]);
-    $serializer->deserialize($body, MyMessage::class, 'json');
-
-
-
+    $data = json_decode($body, true);
+    $message = new MyMessage($data);
 
     // in case of redelivery, unserialize any stamps
     $stamps = [];
@@ -48,7 +40,23 @@ class ExternalJsonSerializer implements SerializerInterface
     return new Envelope($message, $stamps);
   }
 
-
+  /**
+    * Each time we send a message through a transport,
+    * the encode() invoked.
+    * Encode is responsible for serializing the data,
+    * that the will be sent to the queue.
+    *
+    * A custom implementation of encode() is usually not necessary.
+    * If we define a custom decode(), we should also define a custom encode(),
+    * because this version will be used for re-serializing
+    * the data contained in the failed messages.\
+    * Each time the transport tries to re-sent a failed message, our custom
+    * encode() is invoked.
+    *
+    * TODO : add exception handling
+    * (different exception cases can be found in the
+    * link: https://gist.github.com/mpiot/31774997f667ca7e3c69e65d8981130a ).
+    */
   public function encode(Envelope $envelope): array
   {
     // this is called if a message is redelivered for "retry"
