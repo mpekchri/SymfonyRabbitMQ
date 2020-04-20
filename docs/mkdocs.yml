@@ -1,0 +1,19 @@
+site_name: Net2Grid's Assignment
+nav:
+    - Overview: index.md
+    - Configuring Symfony: settings.md
+    - Application's Internals: internals.md
+    - Using the Application: using.md
+    # - Consuming API: consumingApi.md
+    # - De-serializing API responses: serializeApi.md
+    # - Sending messages to the queue: sendMessages.md
+    # - Receiving messages from the queue: consumeMessages.md
+    # - Saving to database: save.md
+theme:
+    name: readthedocs
+    highlightjs: true
+    hljs_languages:
+        - yaml
+
+markdown_extensions:
+    - attr_list
