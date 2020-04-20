@@ -48,4 +48,5 @@ RUN sudo composer install
 EXPOSE 8000
 RUN ls
 # -- NOT WORKING -- CMD symfony server:start --allow-http --no-tls --dir=./ --port=8000
-CMD sudo php -S 0.0.0.0:8000 -t public/
+# CMD sudo php -S 0.0.0.0:8000 -t public/
+CMD php bin/console messenger:consume consumer_transport
