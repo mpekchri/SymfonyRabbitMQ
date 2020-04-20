@@ -27,5 +27,4 @@ Then, open a terminal and run:
     docker-compose up
 
 ## Documentation
-Documentation for this application may be created using
-code in this [repository](https://www.link.com).
+Documentation for this project can be found at ... TO-DO ...
