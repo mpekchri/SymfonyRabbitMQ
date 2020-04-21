@@ -12,5 +12,5 @@ services:
       context: .
       target: dev-msg-consumer
     ports:
-      - 8081:8081
-    # user : docker
+      - 8081:8000
+    user : docker

@@ -22,49 +22,57 @@ RUN sudo apt-get install python3-pip -y
 
 RUN sudo pip3 install pipenv
 
+# Install Apache
+RUN sudo apt-get install apache2 -y
+
 # Install PHP 7.4
 RUN sudo apt-get install -y language-pack-en-base
 RUN sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
 RUN sudo apt-get update
 RUN sudo apt-get install -y php7.4
+RUN sudo apt-get install libapache2-mod-php7.4 php-mcrypt php7.4-mysql -y
 # RUN php -v
 
 # Install php-amqp
 RUN sudo apt-get install php-amqp -y
 
-# Install Composer
-RUN sudo apt-get install curl php-cli php-mbstring git unzip -y
-RUN curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-# RUN composer
+# # Install Composer
+# RUN sudo apt-get install curl php-cli php-mbstring git unzip -y
+# RUN curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+# # RUN composer
 
 RUN sudo apt install php-xml -y
 RUN sudo apt-get install php7.4-curl -y
 
-# # Ready to Go
-# WORKDIR /app
-# # WORKDIR /var/www/html/app
-# COPY . ./
-# RUN sudo composer install
-# # RUN ls
-# # -- NOT WORKING -- CMD symfony server:start --allow-http --no-tls --dir=./ --port=8000
-# # CMD sudo php -S 0.0.0.0:8000 -t public/
-# # CMD php bin/console messenger:consume consumer_transport
-
-
-FROM base as dev-msg-consumer
 WORKDIR /
 COPY . /
-RUN sudo composer install
-EXPOSE 8081
-# CMD php bin/console messenger:consume consumer_transport
-CMD php bin/console messenger:consume consumer_transport 0.0.0.0:8081
-
-
-FROM base as dev-msg-producer
-WORKDIR /
-COPY . /
-RUN sudo composer install
 EXPOSE 8000
-CMD php -S 0.0.0.0:8000 -t public/
+CMD php bin/console messenger:consume consumer_transport
 
 
+# # RUN sudo apt-get install php7.4-mysql
+# # RUN sudo phpenmod pdo_mysql
+
+# # # Ready to Go
+# # WORKDIR /app
+# # # WORKDIR /var/www/html/app
+# # COPY . ./
+# # RUN sudo composer install
+# # # RUN ls
+# # # -- NOT WORKING -- CMD symfony server:start --allow-http --no-tls --dir=./ --port=8000
+# # # CMD sudo php -S 0.0.0.0:8000 -t public/
+# # # CMD php bin/console messenger:consume consumer_transport
+
+
+# FROM base as dev-msg-consumer
+# WORKDIR /
+# COPY . /
+# EXPOSE 8000
+# CMD php bin/console messenger:consume consumer_transport
+
+
+# FROM base as dev-msg-producer
+# WORKDIR /
+# COPY . /
+# EXPOSE 8000
+# CMD php -S 0.0.0.0:8000 -t public/
