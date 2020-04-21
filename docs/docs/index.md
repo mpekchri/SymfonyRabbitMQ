@@ -27,9 +27,9 @@ Start by building the necessary images (skip if already done):
     docker image build -t chris-consumer-img -f Dockerfile-consumer .
     docker image build -t chris-producer-img -f Dockerfile-producer .
 
-Then start two containers by running:
+Then start two containers in the background:
 
-    docker run -p 8010:8000 chris-consumer-img:latest
+    docker run -d -p 8010:8000 chris-consumer-img:latest
     docker run -d -p 8001:8000 chris-producer-img:latest
 
 Great! Both worker that consumes messages and a producer has start. The producer
