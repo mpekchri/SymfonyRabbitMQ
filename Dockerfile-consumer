@@ -48,31 +48,3 @@ WORKDIR /
 COPY . /
 EXPOSE 8000
 CMD php bin/console messenger:consume consumer_transport
-
-
-# # RUN sudo apt-get install php7.4-mysql
-# # RUN sudo phpenmod pdo_mysql
-
-# # # Ready to Go
-# # WORKDIR /app
-# # # WORKDIR /var/www/html/app
-# # COPY . ./
-# # RUN sudo composer install
-# # # RUN ls
-# # # -- NOT WORKING -- CMD symfony server:start --allow-http --no-tls --dir=./ --port=8000
-# # # CMD sudo php -S 0.0.0.0:8000 -t public/
-# # # CMD php bin/console messenger:consume consumer_transport
-
-
-# FROM base as dev-msg-consumer
-# WORKDIR /
-# COPY . /
-# EXPOSE 8000
-# CMD php bin/console messenger:consume consumer_transport
-
-
-# FROM base as dev-msg-producer
-# WORKDIR /
-# COPY . /
-# EXPOSE 8000
-# CMD php -S 0.0.0.0:8000 -t public/
