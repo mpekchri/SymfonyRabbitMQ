@@ -40,13 +40,31 @@ RUN curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/
 RUN sudo apt install php-xml -y
 RUN sudo apt-get install php7.4-curl -y
 
-# Ready to Go
-WORKDIR /app
-# WORKDIR /var/www/html/app
-COPY . ./
+# # Ready to Go
+# WORKDIR /app
+# # WORKDIR /var/www/html/app
+# COPY . ./
+# RUN sudo composer install
+# # RUN ls
+# # -- NOT WORKING -- CMD symfony server:start --allow-http --no-tls --dir=./ --port=8000
+# # CMD sudo php -S 0.0.0.0:8000 -t public/
+# # CMD php bin/console messenger:consume consumer_transport
+
+
+FROM base as dev-msg-consumer
+WORKDIR /
+COPY . /
+RUN sudo composer install
+EXPOSE 8081
+# CMD php bin/console messenger:consume consumer_transport
+CMD php bin/console messenger:consume consumer_transport 0.0.0.0:8081
+
+
+FROM base as dev-msg-producer
+WORKDIR /
+COPY . /
 RUN sudo composer install
 EXPOSE 8000
-RUN ls
-# -- NOT WORKING -- CMD symfony server:start --allow-http --no-tls --dir=./ --port=8000
-# CMD sudo php -S 0.0.0.0:8000 -t public/
-CMD php bin/console messenger:consume consumer_transport
+CMD php -S 0.0.0.0:8000 -t public/
+
+

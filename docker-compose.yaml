@@ -1,0 +1,16 @@
+version: "3.5"
+services:
+  producer:
+    build:
+      context: .
+      target: dev-msg-producer
+    ports:
+      - 8001:8000
+
+  consumer:
+    build:
+      context: .
+      target: dev-msg-consumer
+    ports:
+      - 8081:8081
+    # user : docker
