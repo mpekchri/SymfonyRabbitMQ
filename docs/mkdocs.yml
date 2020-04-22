@@ -1,5 +1,9 @@
-site_url: file:///home/chris/Documents/00_AFTER_ARMY_00/APRIL/symfony_tutorials/net2grid/docs/site/index.html
+site_url: null
 site_name: Net2Grid's Assignment
+site_author: 'Christopher Bekos'
+site_description: Project documentation with Markdown.
+repo_url: https://github.com/mkdocs/mkdocs/
+
 nav:
     - Overview: index.md
     - Configuring Symfony: settings.md
@@ -22,5 +26,3 @@ markdown_extensions:
 
 extra_css:
     - extra.css
-
-site_author: 'Christopher Bekos'

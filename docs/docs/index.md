@@ -17,7 +17,7 @@ Finally, the new entity is used, in order to save this information in a mysql da
 ## Requirements
 In order to install this application, your system must fulfill these requirements:
 
-* `Docker` version 19.03.5 or higher
+* `Docker`{style="color:#EA6113;"} version 19.03.5 or higher
 
 ## Run the application
 Using docker is really easy to start a producer and a consumer service. Open a terminal
@@ -34,9 +34,9 @@ Then start two containers in the background:
 
 Great! Both worker that consumes messages and a producer has start. The producer
 exposes an endpoint, where you may use in order to sent messages to the queue.  
-Open a browser and head to `localhost:8001/basic` in order to send a single message
-to the queue, or head to `localhost:8001/basic/{num: int}` in order to send multiple messages.
-A valid url would be `localhost:8001/basic/10` and visiting it would result 10 messages to
+Open a browser and head to `localhost:8001/basic`{style="color:#EA6113;"} in order to send a single message
+to the queue, or head to `localhost:8001/basic/{num: int}`{style="color:#EA6113;"} in order to send multiple messages.
+A valid url would be `localhost:8001/basic/10`{style="color:#EA6113;"} and visiting it would result 10 messages to
 be produced and sent to the queue. Queue will accept some of them, based on the rooting key used.  
 Each time new messages arrive at it, the consumer consumes it and saves it to a database.
 

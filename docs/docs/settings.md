@@ -30,11 +30,11 @@ configured.
 ## Configuring the .env file
 Communication with the RabbitMQ queue should be done using the following credentials:
 
-* `hostname:` candidatemq.n2g-dev.net
-* `username:` cand_d4uf
-* `password:` Yd6bCNQgWpx429zr
-* `exchange:` cand_d4uf
-* `queue:` cand_d4uf_results  
+* `hostname:`{style="color:#EA6113;"} candidatemq.n2g-dev.net
+* `username:`{style="color:#EA6113;"} cand_d4uf
+* `password:`{style="color:#EA6113;"} Yd6bCNQgWpx429zr
+* `exchange:`{style="color:#EA6113;"} cand_d4uf
+* `queue:`{style="color:#EA6113;"} cand_d4uf_results  
 
 Therefore, our .env file should include the following lines:
 
