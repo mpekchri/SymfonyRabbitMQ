@@ -1,11 +1,11 @@
 # Configuring Symfony with RabbitMQ & Doctrine
 
 This section describes the necessary configuration of a Symfony 4 project,
-in order to use it along with a RabbitMQ queue and an Object relational mapper (ORM),
+in order to use it along with a RabbitMQ and an Object relational mapper (ORM),
 known as Doctrine.
 
 ## Symfony 4 Project Structure
-When building a new Symfony 4 project using the command
+When building a new Symfony 4 project using the command:
 
     symfony new <project_name>
 
@@ -21,6 +21,10 @@ The following commands may be used to install the necessary bundles:
 
     composer require symfony/messenger
     composer require symfony/orm-pack
+
+!!! note
+    Installing those bundles is not necessary to run this application,
+    since dockerfiles take care of it on your behalf.
 
 After installing those bundles, the project structure includes some extra files. In the figure below
 part of the project structure is shown, where we highlight (with green color), the files that must be
