@@ -48,4 +48,4 @@ WORKDIR /
 COPY . /
 RUN sudo composer install
 EXPOSE 8000
-CMD php bin/console messenger:consume consumer_transport
+CMD sudo php bin/console messenger:consume consumer_transport
