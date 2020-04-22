@@ -4,6 +4,7 @@ site_author: 'Christopher Bekos'
 site_description: Project documentation with Markdown.
 repo_url: https://github.com/mpekchri/SymfonyRabbitMQ
 
+
 nav:
     - Overview: index.md
     - Configuring Symfony: settings.md
