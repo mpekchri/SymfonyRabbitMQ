@@ -40,11 +40,15 @@ A valid url would be `localhost:8001/basic/10` and visiting it would result 10 m
 be produced and sent to the queue. Queue will accept some of them, based on the rooting key used.  
 Each time new messages arrive at it, the consumer consumes it and saves it to a database.
 
-<div style="background:#FFD6B0;border-radius:2px;padding:10px 10px; ">
+<!-- <div style="background:#FFD6B0;border-radius:2px;padding:10px 10px; ">
 Warning: A consumer container may to fail after some amount of time. Since we are not
 using a container orchestration tool, user is responsible for manually restarting it.
 </div>  
-<br/>
+<br/> -->
+!!! warning
+    A consumer container may to fail after some amount of time. Since we are not
+    using a container orchestration tool, user is responsible for manually restarting it.
+
 For more information about using the application it is strongly recommended to
 visit the [Using The Application](using.md) section.
 

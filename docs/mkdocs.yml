@@ -18,3 +18,9 @@ theme:
 
 markdown_extensions:
     - attr_list
+    - admonition # check the docs: https://squidfunk.github.io/mkdocs-material/extensions/admonition/
+
+extra_css:
+    - extra.css
+
+site_author: 'Christopher Bekos'

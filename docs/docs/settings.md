@@ -100,11 +100,15 @@ are accessible through the dsn option. Additionally, the async transport (used f
 need to know about the exchange, while the consumer_transport (used for consuming messages)
 only need to know the queue name. The option auto_setup must be set to false, in order to work with
 a queue already configured by a third party.
-<div style="background:#C8E4FF;border-radius:2px;padding:10px 10px; ">
+<!-- <div style="background:#C8E4FF;border-radius:2px;padding:10px 10px; ">
 Using different transports we are able to define custom serializer for messages that will be published
 or consumed. We need to define custom serializer if we consume messages from the queue, which are created
 by a third party.
-</div>  
+</div>   -->
+!!! note
+    Using different transports we are able to define custom serializer for messages that will be published
+    or consumed. We need to define custom serializer if we consume messages from the queue, which are created
+    by a third party.
 
 ## Configuring the services.yaml file
 With Doctrine, saving entities to the database is easy, since the Doctrine's object manager works on our behalf.

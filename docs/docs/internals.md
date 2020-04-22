@@ -71,9 +71,11 @@ A class that implements `Symfony\Component\Messenger\Handler\MessageHandlerInter
 Here we override the <span style="color:#4EA1EE">\__invoke(</span><span style="color:#7B0DAE">MyMessage</span> <span style="color:#EE9B4E">$msg</span><span style="color:#4EAEEE">)</span>, in order to define how to handle
 a message each time it is consumed. In our cases, a consumed message's attributes are used in order to create a `Net2Grid` object, which allows us to store those data in the database.
 
-<div style="background:#C8E4FF;border-radius:2px;padding:10px 10px; ">
+<!-- <div style="background:#C8E4FF;border-radius:2px;padding:10px 10px; ">
 Note that all we need to do, is declare that the <span style="color:#0E78DA">\__invoke</span> function accepts as argument a </span><span style="color:#7B0DAE">MyMessage</span> object. This way the Symfony Messenger Component knows to use this specific handler each time a message arrives in the Bus, in order to be consumed.
-</div> <br/>
+</div> <br/> -->
+!!! note
+    Note that all we need to do, is declare that the <span style="color:#0E78DA">\__invoke</span> function accepts as argument a </span><span style="color:#7B0DAE">MyMessage</span> object. This way the Symfony Messenger Component knows to use this specific handler each time a message arrives in the Bus, in order to be consumed.
 
 ### Net2Grid
 This is a doctrine ORM Entity used to easily save data to the database. The Entity
