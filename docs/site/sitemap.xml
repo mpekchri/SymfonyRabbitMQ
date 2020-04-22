@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
+     <loc>https://symfonyrabbitmqdoc.herokuapp.com/</loc>
+     <lastmod>2020-04-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://symfonyrabbitmqdoc.herokuapp.com/settings/</loc>
+     <lastmod>2020-04-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://symfonyrabbitmqdoc.herokuapp.com/internals/</loc>
+     <lastmod>2020-04-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://symfonyrabbitmqdoc.herokuapp.com/using/</loc>
+     <lastmod>2020-04-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+</urlset>

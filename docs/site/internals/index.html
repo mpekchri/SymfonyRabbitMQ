@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Christopher Bekos">
+  <link rel="canonical" href="https://symfonyrabbitmqdoc.herokuapp.com/internals/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Application's Internals - Net2Grid's Assignment</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Application's Internals";
+    var mkdocs_page_input_path = "internals.md";
+    var mkdocs_page_url = "/internals/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Net2Grid's Assignment</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Overview</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../settings/">Configuring Symfony</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Application's Internals</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#project-structure">Project Structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#producing-messages">Producing Messages</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basiccontroller">BasicController</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#requesthandler">RequestHandler</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#requestserializer">RequestSerializer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mymessage">MyMessage</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#consuming-messages">Consuming Messages</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mymessagehandler">MyMessageHandler</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#net2grid">Net2Grid</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#declaring-additional-services">Declaring Additional Services</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using/">Using the Application</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Net2Grid's Assignment</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Application's Internals</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/mpekchri/SymfonyRabbitMQ/edit/master/docs/internals.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="the-big-picture">The Big Picture</h1>
+<p>This section provides an extensive look at application's classes
+and how these are combined together to provide the desired functionality.</p>
+<h2 id="project-structure">Project Structure</h2>
+<p>The figure bellow shows part of the project structure, which contains several new classes.
+Each class has a specific responsibility, e.g. consuming data from an API, serializing the data,
+creating messages, etc. More details are provided later in this section.</p>
+<p><img alt="" src="../img/img4.png" style="height:10%;width:30%;margin-left:5%" /></p>
+<h2 id="producing-messages">Producing Messages</h2>
+<p>In order to produce and publish messages to the queue, the following process is necessary.</p>
+<p><img alt="" src="../img/img5.png" style="height:10%;width:90%; margin-left:1%" /></p>
+<p>Several classes are involved in the process:</p>
+<h3 id="basiccontroller">BasicController</h3>
+<p>Exposes an endpoint at <code style="color:#EA6113;">/basic/{num_of_messages: int}</code>. Each time a request to this endpoint occurs, Symfony
+makes sure that BasicController.index() is invoked. There, the controller uses the <span style="color:#EE9B4E">requestHandler-&gt;</span><span style="color:#4EA1EE">sendRequest()</span> function, in order to receive a message (type of array) and a rooting key (type of string). The requestHandler is a <code style="color:#EA6113;">RequestHandler</code> instance. Then, controller uses the function <span style="color:#4EA1EE">dispatch()</span>, provided by Symfony Messernger Component, in order to sent the message to the queue.</p>
+<h3 id="requesthandler">RequestHandler</h3>
+<p>Exposes a public method named <span style="color:#4EA1EE">sendRequest</span>. Each time <span style="color:#4EA1EE">sendRequest()</span> is invoked, a <code style="color:#EA6113;">GET</code> request is sent at <code style="color:#EA6113;">https://a831bqiv1d.execute-api.eu-west-1.amazonaws.com/dev/results</code>. The response is forwarded to a <code style="color:#EA6113;">RequestSerializer</code> instance, in order to construct
+a message object, type of <code style="color:#EA6113;">MyMessage</code> and a rooting key, type of string. Both the message and the rooting key are
+returned as function's result, to <code style="color:#EA6113;">BasicController</code>.</p>
+<h3 id="requestserializer">RequestSerializer</h3>
+<p>Is responsible for de-serialization of responses, received by <code style="color:#EA6113;">RequestHandler</code>. Each response
+has the following format:</p>
+<pre><code>{
+    gatewayEui:     string,
+    profileId:      string,
+    endpointId:     string,
+    clusterId:      string,
+    attributeId:    string,
+    value:          int,
+    timestamp:      int        
+}
+</code></pre>
+<p>The <code style="color:#EA6113;">RequestSerializer</code> will turn such a response into a <code style="color:#EA6113;">message: MyMessage</code> instance and a <code style="color:#EA6113;">rooting key: string</code>.<br />
+The rooting key has the form: <code style="color:#EA6113;">&lt;gateway eui&gt;.&lt;profile&gt;.&lt;endpoint&gt;.&lt;cluster&gt;.&lt;attribute&gt;</code> and is created by the decimal value of the corresponding values in respone object. The convertion from string to decimal is achieved using the
+php build-in function <span style="color:#4EA1EE">hex2dec_string</span>.</p>
+<h3 id="mymessage">MyMessage</h3>
+<p>A common php class which defines the data that each queue message contains.
+MyMessage has the following attributes:</p>
+<ul>
+<li>value <code style="color:#EA6113;">int</code></li>
+<li>timestamp  <code style="color:#EA6113;">int</code></li>
+<li>rootingKey  <code style="color:#EA6113;">string</code></li>
+</ul>
+<p>In our messenger.yaml file, we have already defined that <code style="color:#EA6113;">MyMessage</code> class will be used for rooting by
+our tranports. Thus, Symfony Component Messenger knows that it should sent a <code style="color:#EA6113;">MyMessage</code> object
+to the queue. Additionally, when consuming a message type of <code style="color:#EA6113;">MyMessage</code>, it tries to invoke
+a proper handler function.</p>
+<h2 id="consuming-messages">Consuming Messages</h2>
+<p>In order to consume messages from the queue we need a properly defined class. This class should
+implement the <code style="color:#EA6113;">Symfony\Component\Messenger\Handler\MessageHandlerInterface</code>. In this application the
+corresponding class is named <code style="color:#EA6113;">MyMessageHandler</code>.</p>
+<p><img alt="" src="../img/img6.png" style="height:10%;width:95%; margin-left:1%" /></p>
+<h3 id="mymessagehandler">MyMessageHandler</h3>
+<p>A class that implements <code style="color:#EA6113;">Symfony\Component\Messenger\Handler\MessageHandlerInterface</code>.
+Here we override the <span style="color:#4EA1EE">__invoke(</span><span style="color:#7B0DAE">MyMessage</span> <span style="color:#EE9B4E">$msg</span><span style="color:#4EAEEE">)</span>, in order to define how to handle
+a message each time it is consumed. In our cases, a consumed message's attributes are used in order to create a <code style="color:#EA6113;">Net2Grid</code> object, which allows us to store those data in the database.</p>
+<!-- <div style="background:#C8E4FF;border-radius:2px;padding:10px 10px; ">
+Note that all we need to do, is declare that the <span style="color:#0E78DA">\__invoke</span> function accepts as argument a </span><span style="color:#7B0DAE">MyMessage</span> object. This way the Symfony Messenger Component knows to use this specific handler each time a message arrives in the Bus, in order to be consumed.
+</div> <br/> -->
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that all we need to do, is declare that the <span style="color:#0E78DA">__invoke</span> function accepts as argument a </span><code style="color:#7B0DAE;">MyMessage</code> object. This way the Symfony Messenger Component knows to use this specific handler each time a message arrives in the Bus, in order to be consumed.</p>
+</div>
+<h3 id="net2grid">Net2Grid</h3>
+<p>This is a doctrine ORM Entity used to easily save data to the database. The Entity
+has the following attributes:</p>
+<ul>
+<li>id        <code style="color:#EA6113;">ID</code></li>
+<li>gatewaiUi <code style="color:#EA6113;">STRING</code></li>
+<li>profile   <code style="color:#EA6113;">STRING</code></li>
+<li>endpoint  <code style="color:#EA6113;">STRING</code></li>
+<li>cluster   <code style="color:#EA6113;">STRING</code></li>
+<li>attribute <code style="color:#EA6113;">STRING</code></li>
+<li>value     <code style="color:#EA6113;">BIGINT</code></li>
+<li>timestamp <code style="color:#EA6113;">BIGINT</code></li>
+</ul>
+<h2 id="declaring-additional-services">Declaring Additional Services</h2>
+<p>Since <code style="color:#EA6113;">BasicController</code> uses an instance type of<code style="color:#EA6113;">RequestHandler</code> and <code style="color:#EA6113;">RequestHandler</code>
+uses an instance type of <code style="color:#EA6113;">RequestSerializer</code>, we should add the following lines in
+our services.yaml file.</p>
+<pre><code># add more service definitions when explicit configuration is needed
+App\Controller\BasicController: ['@App\Service\RequestHandler']
+App\Service\RequestHandler: ['@App\Serializer\RequestSerializer']
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../using/" class="btn btn-neutral float-right" title="Using the Application">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../settings/" class="btn btn-neutral" title="Configuring Symfony"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/mpekchri/SymfonyRabbitMQ/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../settings/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../using/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

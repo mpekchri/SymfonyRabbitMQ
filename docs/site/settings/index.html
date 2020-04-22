@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Christopher Bekos">
+  <link rel="canonical" href="https://symfonyrabbitmqdoc.herokuapp.com/settings/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Configuring Symfony - Net2Grid's Assignment</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Configuring Symfony";
+    var mkdocs_page_input_path = "settings.md";
+    var mkdocs_page_url = "/settings/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Net2Grid's Assignment</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Overview</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Configuring Symfony</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#symfony-4-project-structure">Symfony 4 Project Structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuring-the-env-file">Configuring the .env file</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuring-the-messengeryaml-file">Configuring the messenger.yaml file</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuring-the-servicesyaml-file">Configuring the services.yaml file</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../internals/">Application's Internals</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using/">Using the Application</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Net2Grid's Assignment</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Configuring Symfony</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/mpekchri/SymfonyRabbitMQ/edit/master/docs/settings.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="configuring-symfony-with-rabbitmq-doctrine">Configuring Symfony with RabbitMQ &amp; Doctrine</h1>
+<p>This section describes the necessary configuration of a Symfony 4 project,
+in order to use it along with a RabbitMQ queue and an Object relational mapper (ORM),
+known as Doctrine.</p>
+<h2 id="symfony-4-project-structure">Symfony 4 Project Structure</h2>
+<p>When building a new Symfony 4 project using the command</p>
+<pre><code>symfony new &lt;project_name&gt;
+</code></pre>
+<p>a folder named <project_name> is created, having the project structure as shown
+in the following figure:<br />
+<img alt="" src="../img/img1.png" style="height:270px;width:150px;margin-left:2%; margin-top:10px" /></p>
+<p>In order to combine with RabbitMQ we use the Symfony Messenger Component.<br />
+Messenger provides a message bus with the ability to send messages and
+then handle them immediately in your application or send them through transports (e.g. queues) to be handled later.
+Also, using the Doctrine ORM requires the doctrine-orm bundle.<br />
+The following commands may be used to install the necessary bundles:</p>
+<pre><code>composer require symfony/messenger
+composer require symfony/orm-pack
+</code></pre>
+<p>After installing those bundles, the project structure includes some extra files. In the figure below
+part of the project structure is shown, where we highlight (with green color), the files that must be
+configured.<br />
+<img alt="" src="../img/img2.png" style="height:270px;width:150px;margin-left:2%; margin-top:10px" /></p>
+<h2 id="configuring-the-env-file">Configuring the .env file</h2>
+<p>Communication with the RabbitMQ queue should be done using the following credentials:</p>
+<ul>
+<li><code style="color:#EA6113;">hostname:</code> candidatemq.n2g-dev.net</li>
+<li><code style="color:#EA6113;">username:</code> cand_d4uf</li>
+<li><code style="color:#EA6113;">password:</code> Yd6bCNQgWpx429zr</li>
+<li><code style="color:#EA6113;">exchange:</code> cand_d4uf</li>
+<li><code style="color:#EA6113;">queue:</code> cand_d4uf_results  </li>
+</ul>
+<p>Therefore, our .env file should include the following lines:</p>
+<pre><code>###&gt; symfony/messenger ###
+MESSENGER_TRANSPORT_DSN=amqp://cand_d4uf:Yd6bCNQgWpx429zr@candidatemq.n2g-dev.net
+###&lt; symfony/messenger ###
+</code></pre>
+<h2 id="configuring-the-messengeryaml-file">Configuring the messenger.yaml file</h2>
+<p>This is a file that must be configured when using Symfony's Messenger to exchange messages with RabbitMQ.
+The figure below displays the big picture of message exchange between a Symfony application and a RabbitMQ queue:</p>
+<p><img alt="" src="../img/img3.png" style="height:20%;width:80%;margin-left:5%" /></p>
+<p>A message Producer sends the message to an exchange, along with a rooting key. An exchange
+is connected to one or more queues, using a binding and a binding key. When a message arrives at
+the exchange, it compares the rooting key with each binding key and forwards the message to the
+corresponding queue. The way an exchange compares a rooting key with a binding key depends on the
+type of the exchange (e.g. direct). If messages exist in a queue, they may be consumed by one or more consumers.</p>
+<p>When using the Symfony Messenger Component a message bus is provided. Using it, we have the ability
+to send messages and then handle them immediately in our application or send them
+through transports (e.g. queues) to be handled later.<br />
+Messenger supports a number of different transport types, each with their own options. Since
+we need to use RabbitMQ we need to configure the AMQP Transport. In order to do so, we
+configure the messenger.yaml as shown below:</p>
+<pre><code>framework:
+    messenger:
+        # Uncomment this (and the failed transport below) to send failed messages
+        # to this transport for later handling.
+        # failure_transport: failed
+
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            async:
+              dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+              options:
+                auto_setup: false
+                # for AMQP send to a separate exchange then queue
+                exchange:
+                  name: cand_d4uf
+                  type: direct
+
+            consumer_transport:
+              dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+              options:
+                auto_setup: false
+                queues:
+                  cand_d4uf_results: ~
+              # -&gt; If you wish to use custom serializer for this transport,
+              # uncomment the next line:
+              # serializer: App\Serializer\ExternalJsonSerializer
+
+        routing:
+          # Route your messages to the transports
+          'App\Message\MyMessage' : [async, consumer_transport]
+          # -&gt; If you wish to use custom serializer for this transport,
+          # remove the 'consumer_transport' from the array above.
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using different transports we are able to define custom serializer for messages that will be published
+or consumed. We need to define custom serializer if we consume messages from the queue, which are created
+by a third party.</p>
+</div>
+<h2 id="configuring-the-servicesyaml-file">Configuring the services.yaml file</h2>
+<p>With Doctrine, saving entities to the database is easy, since the Doctrine's object manager works on our behalf.
+But in order to use it, we need to declare it as a service, so it can be autowired by Symfony. Thus, our services.yaml
+file should include the following lines:</p>
+<pre><code># add more service definitions when explicit configuration is needed
+Doctrine\Persistence\ObjectManager: '@doctrine.orm.default_entity_manager'
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../internals/" class="btn btn-neutral float-right" title="Application's Internals">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/mpekchri/SymfonyRabbitMQ/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../internals/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,8 +1,8 @@
-site_url: null
+site_url: https://symfonyrabbitmqdoc.herokuapp.com/
 site_name: Net2Grid's Assignment
 site_author: 'Christopher Bekos'
 site_description: Project documentation with Markdown.
-repo_url: https://github.com/mkdocs/mkdocs/
+repo_url: https://github.com/mpekchri/SymfonyRabbitMQ
 
 nav:
     - Overview: index.md
