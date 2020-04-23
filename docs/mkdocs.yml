@@ -8,6 +8,7 @@ repo_url: https://github.com/mpekchri/SymfonyRabbitMQ
 nav:
     - Overview: index.md
     - Configuring Symfony: settings.md
+    - Project Structure: structure.md
     - Application's Internals: internals.md
     - Using the Application: using.md
     # - Consuming API: consumingApi.md

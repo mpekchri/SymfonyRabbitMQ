@@ -29,7 +29,7 @@ Start by building the necessary images (skip if already done):
 
 Then start two containers in the background:
 
-    docker run -d -p 8010:8000 chris-consumer-img:latest --restart
+    docker run --restart=always -d -p 8010:8000 chris-consumer-img:latest
     docker run -d -p 8001:8000 chris-producer-img:latest
 
 Great! Both worker that consumes messages and a producer has start. The producer
@@ -48,7 +48,7 @@ using a container orchestration tool, user is responsible for manually restartin
 !!! warning
     A consumer container may to fail after some amount of time. Since we are not
     using a container orchestration tool, user is responsible for manually restarting it.
-    In order to avoid such situations, the --restart argument is provided to the docker run
+    In order to avoid such situations, the --restart=always argument is provided to the docker run
     command that starts the consumer's container.
 
 For more information about using the application it is strongly recommended to
