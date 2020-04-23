@@ -9,7 +9,7 @@ these directories. Each directory under the src/ is used to define a group of cl
 
 ## Controller
 
-This directory contains classes that act as controllers. This directory contains classes that act as controllers. Controllers are used to decoupling classes and increase reusability. In Symfony, each controller may contain several methods bound to different endpoints, using annotations, which handle requests to the corresponding endpoints.
+This directory contains classes that act as controllers. Controllers are used to decoupling classes and increase reusability. In Symfony, each controller may contain several methods bound to different endpoints, using annotations, which handle requests to the corresponding endpoints.
 
 
 ## Message
