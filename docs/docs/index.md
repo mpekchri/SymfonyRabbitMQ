@@ -48,9 +48,28 @@ using a container orchestration tool, user is responsible for manually restartin
 !!! warning
     A consumer container may to fail after some amount of time. Since we are not
     using a container orchestration tool, user is responsible for manually restarting it.
+    In order to avoid such situations, the --restart argument is provided to the docker run
+    command that starts the consumer's container.
 
 For more information about using the application it is strongly recommended to
 visit the [Using The Application](using.md) section.
 
 ## Documentation
-Documentation for this project can be found at ... TO-DO ...
+Documentation files. which are used to build the current site, can be found at this [github repository](https://github.com/mpekchri/SymfonyRabbitMQ) under the docs/ directory. If you wish to edit the docs, cd into the docs/ directory and run:
+
+    make serve-docs
+
+This command will start a local development server, which can be used to render the edited docs, in realtime.
+If you wish to build the docs into a static website, ready for deployment in heroku, just run:
+
+    make build-docs
+
+This command will create a new folder, named sites/, under the docs/ directory. You may use the following command
+in order to deploy to heroku, or deploy to another provider.
+
+    git push heroku `git subtree split --prefix docs/site master`:master --force
+
+
+!!! warning
+    In order to start the development server, or build the docs both `python 3` and `pipenv` must
+    be installed in your system.
