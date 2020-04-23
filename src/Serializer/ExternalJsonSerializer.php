@@ -19,7 +19,7 @@ class ExternalJsonSerializer implements SerializerInterface
     * Meanwhile, we are able to handle
     * the third party data contained in $encodedEnvelope['body'] as we wish.
     *
-    * TODO : add exception handling & json validation.
+    * TODO: add exception handling & json validation.
     * Current version of decode() is propably going to fail, without
     * these implementations.
     */
@@ -53,7 +53,7 @@ class ExternalJsonSerializer implements SerializerInterface
     * Each time the transport tries to re-sent a failed message, our custom
     * encode() is invoked.
     *
-    * TODO : add exception handling
+    * TODO: add exception handling
     * (different exception cases can be found in the
     * link: https://gist.github.com/mpiot/31774997f667ca7e3c69e65d8981130a ).
     */

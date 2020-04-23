@@ -21,6 +21,9 @@ class MyMessageHandler implements MessageHandlerInterface
     $this->manager = $manager;
   }
 
+  /*
+   * TODO: Add description.
+   */ 
   public function __invoke(MyMessage $msg)
   {
     $rootingKey = $msg->getRootingKey();
@@ -35,13 +38,10 @@ class MyMessageHandler implements MessageHandlerInterface
     $net2grid->setCluster($keyInfo[3]);
     $net2grid->setAttribute($keyInfo[4]);
     
-    dump($msg);
+    // dump($msg);
 
     $this->manager->persist($net2grid);
     $this->manager->flush();
-
-    
-    // dump('saved to db');
   }
 
 }

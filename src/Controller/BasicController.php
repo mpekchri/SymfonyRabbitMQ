@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\RequestHandler;
-use App\Message\MyMessage;
+// use App\Message\MyMessage;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Transport\AmqpExt\AmqpStamp;
 
@@ -18,6 +18,7 @@ class BasicController extends AbstractController
     /**
       * @var RequestHandler
       */
+    
     private $reqHandler;
     /**
       * @var MessageBusInterface
@@ -33,24 +34,29 @@ class BasicController extends AbstractController
     /**
      * @Route("/basic", name="api.request.single")
      * @Route("/basic/{num}", name="api.request.multiple")
+     * 
+     * TODO: Add description
      */
     public function index(int $num = 1)
     {
-      $dummyLog = [];
+      $messages = [];
       // send requests, receive responses,
       // construct messages & send them to rabbtimq
       for($i=0; $i<$num; $i++){
         $deserializedResponse = $this->reqHandler->sendRequest();
-        $dummyLog[] = $deserializedResponse;
-        $message = new MyMessage($deserializedResponse['body']);
-        $rootingKey = $deserializedResponse['key'];
+        // extracts two variables: $message and $rootingKey
+        extract($deserializedResponse);
+
+        $messages[] = $message;
+
+        // dispatch message (sent to bus), including rooting key
         $this->bus->dispatch($message,[
           new AmqpStamp($rootingKey)
         ]);
       }
 
       return $this->json([
-        'http_response_contents' => $dummyLog
+        'messages_sent_to_queue' => $messages
       ]);
     }
 }

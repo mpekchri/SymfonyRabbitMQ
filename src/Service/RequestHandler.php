@@ -28,22 +28,14 @@ class RequestHandler
   }
 
   /**
-    * Private function that sends a single request,
-    * receives response and convert it's data to json object, if valid.
-    * TO-DO : use curl to make it asynchronous.
+    * Sends a single request and receives the response.
+    * Then, it forwards the response data to a RequestSerializer,
+    * in order to de-serialize them into a message: MyMessage and a rootingKey: string.
+    * It returns the result produced by this de-serialization.
     */
   public function sendRequest(){
-    $result = file_get_contents($this->url, false, $this->context);
-    // return $result !== FALSE ? json_decode($result, true) : null;
-    return $result !== FALSE ? $this->serializer->deserialize($result) : null;
-  }
-
-  public function makeRequests(int $num_of_requests = 1){
-    $results = [];
-    for($i=0; $i<$num_of_requests; $i++){
-      $results[$i] = $this->sendRequest();
-    }
-    return $results;
+    $response = file_get_contents($this->url, false, $this->context);
+    return $response !== FALSE ? $this->serializer->deserialize($response) : null;
   }
 
 }

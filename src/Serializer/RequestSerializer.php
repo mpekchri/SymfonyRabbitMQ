@@ -3,18 +3,27 @@
 namespace App\Serializer;
 
 
+use App\Message\MyMessage;
+
+
 class RequestSerializer
 {
   public function __construct(){
 
   }
 
+  /*
+   * TODO: Add description.
+   */ 
   public function serialize($obj){
     throw new BadMethodCallException("This function is not implemented. \
       No reason to use it, in this application, check for logical errors.
     ");
   }
 
+  /*
+   * TODO: Add description.
+   */ 
   public function deserialize($obj){
     $data = json_decode($obj, true);
     $data['gatewayEui'] = $this->hex2dec_string($data['gatewayEui']);
@@ -32,20 +41,20 @@ class RequestSerializer
       "timestamp" => $data['timestamp'],
       "rootingKey" => $message_key
     ];
-    // dump($message_key);
 
-    // $num = hexdec('84df0c0000102800');
-    // $string = number_format($num, 0, '', '');
-    // dump($string);
-    // dump(dechex(9574384526953555968));
-    // dump(dechex($num));
+    $message = new MyMessage($message_body);
+
 
     return [
-      'key' => $message_key,
-      'body' => $message_body
+      'message' => $message,
+      'rootingKey' => $message_key
     ];
   }
 
+
+  /*
+   * TODO: Add description.
+   */ 
   private function hex2dec_string(string $hex) :string
   {
     $num = hexdec($hex);
