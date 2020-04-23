@@ -135,7 +135,7 @@ Start by building the necessary images (skip if already done):</p>
 docker image build -t chris-producer-img -f Dockerfile-producer .
 </code></pre>
 <p>Then start two containers in the background:</p>
-<pre><code>docker run -d -p 8010:8000 chris-consumer-img:latest
+<pre><code>docker run -d -p 8010:8000 chris-consumer-img:latest --restart
 docker run -d -p 8001:8000 chris-producer-img:latest
 </code></pre>
 <p>Great! Both worker that consumes messages and a producer has start. The producer
@@ -215,5 +215,5 @@ visit the <a href="using/">Using The Application</a> section.</p>
 
 <!--
 MkDocs version : 1.1
-Build Date UTC : 2020-04-22 13:34:39
+Build Date UTC : 2020-04-23 13:16:01
 -->
