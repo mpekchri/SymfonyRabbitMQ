@@ -48,4 +48,6 @@ WORKDIR /
 COPY . /
 RUN sudo composer install
 EXPOSE 8000
-CMD sudo php bin/console messenger:consume consumer_transport
+# Each consumer will consume 15 messages before exiting (and docker restarts the container)
+# in order to prevent memory leaks, etc.
+CMD sudo php bin/console messenger:consume consumer_transport --limit=15

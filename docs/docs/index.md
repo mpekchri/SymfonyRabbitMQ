@@ -29,7 +29,7 @@ Start by building the necessary images (skip if already done):
 
 Then start two containers in the background:
 
-    docker run -d -p 8010:8000 chris-consumer-img:latest
+    docker run -d -p 8010:8000 chris-consumer-img:latest --restart
     docker run -d -p 8001:8000 chris-producer-img:latest
 
 Great! Both worker that consumes messages and a producer has start. The producer

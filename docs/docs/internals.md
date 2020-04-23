@@ -18,7 +18,7 @@ Several classes are involved in the process:
 
 ### BasicController  
 Exposes an endpoint at `/basic/{num_of_messages: int}`{style="color:#EA6113;"}. Each time a request to this endpoint occurs, Symfony
-makes sure that BasicController.index() is invoked. There, the controller uses the <span style="color:#EE9B4E">requestHandler-></span><span style="color:#4EA1EE">sendRequest()</span> function, in order to receive a message (type of array) and a rooting key (type of string). The requestHandler is a `RequestHandler`{style="color:#EA6113;"} instance. Then, controller uses the function <span style="color:#4EA1EE">dispatch()</span>, provided by Symfony Messernger Component, in order to sent the message to the queue.
+makes sure that BasicController.index() is invoked. There, the controller uses the <span style="color:#EE9B4E">requestHandler-></span><span style="color:#4EA1EE">sendRequest()</span> function, in order to receive a message (type of array) and a rooting key (type of string). The requestHandler is a `RequestHandler`{style="color:#EA6113;"} instance. Then, controller uses the function <span style="color:#4EA1EE">dispatch()</span>, provided by Symfony Messernger Component, in order to sent the message to the queue. The process is repeated for num_of_messages times. If num_of_messages is not specified, it is considered to be equal to 1.
 
 
 ### RequestHandler  
