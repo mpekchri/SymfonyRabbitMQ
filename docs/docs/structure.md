@@ -1,4 +1,4 @@
-## Project Structure
+# Project Structure
 The following figure shows part of the project structure, which contains several new classes.
 Each class has a specific responsibility, e.g. consuming data from an API, serializing the data,
 creating messages, etc. More details about the specific use of each class is provided in section [Application's Internals](internals.md). In this section we discuss about the functionality and the porpuse of classes inside
