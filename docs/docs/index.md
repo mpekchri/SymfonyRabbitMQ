@@ -19,7 +19,7 @@ In order to install this application, your system must fulfill these requirement
 
 * `Docker`{style="color:#EA6113;"} version 19.03.5 or higher
 
-## Run the application
+## Running the application
 Using docker is really easy to start a producer and a consumer service. Open a terminal
 and cd in the project folder (where the Dockerfile-producer & Dockerfile-consumer exist).
 Start by building the necessary images (skip if already done):
@@ -51,8 +51,11 @@ using a container orchestration tool, user is responsible for manually restartin
     In order to avoid such situations, the --restart=always argument is provided to the docker run
     command that starts the consumer's container.
 
-For more information about using the application it is strongly recommended to
-visit the [Using The Application](using.md) section.
+!!! error "Important"
+    This application is only a demo for demonstration purposes. It is not configured for production.
+
+<!-- For more information about using the application it is strongly recommended to
+visit the [Using The Application](using.md) section. -->
 
 ## Documentation
 Documentation files. which are used to build the current site, can be found at this [github repository](https://github.com/mpekchri/SymfonyRabbitMQ) under the docs/ directory. If you wish to edit the docs, cd into the docs/ directory and run:

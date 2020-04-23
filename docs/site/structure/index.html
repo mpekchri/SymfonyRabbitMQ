@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <meta name="author" content="Christopher Bekos">
-  <link rel="canonical" href="https://symfonyrabbitmqdoc.herokuapp.com/using/">
+  <link rel="canonical" href="https://symfonyrabbitmqdoc.herokuapp.com/structure/">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Using the Application - Net2Grid's Assignment</title>
+  <title>Project Structure - Net2Grid's Assignment</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -19,9 +19,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Using the Application";
-    var mkdocs_page_input_path = "using.md";
-    var mkdocs_page_url = "/using/";
+    var mkdocs_page_name = "Project Structure";
+    var mkdocs_page_input_path = "structure.md";
+    var mkdocs_page_url = "/structure/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -57,8 +57,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../settings/">Configuring Symfony</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../structure/">Project Structure</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Project Structure</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -86,10 +88,10 @@
     
       
     
-    <li>Using the Application</li>
+    <li>Project Structure</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/mpekchri/SymfonyRabbitMQ/edit/master/docs/using.md"
+        <a href="https://github.com/mpekchri/SymfonyRabbitMQ/edit/master/docs/structure.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -100,14 +102,43 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="using-the-application">Using the Application</h1>
-<h2 id="not-production-ready">Not production ready</h2>
-<h2 id="workers-at-production">Workers at production</h2>
-<p>https://symfony.com/doc/current/messenger.html#deploying-to-production</p>
+                <h2 id="project-structure">Project Structure</h2>
+<p>The following figure shows part of the project structure, which contains several new classes.
+Each class has a specific responsibility, e.g. consuming data from an API, serializing the data,
+creating messages, etc. More details about the specific use of each class is provided in section <a href="../internals/">Application's Internals</a>. In this section we discuss about the functionality and the porpuse of classes inside
+these directories. Each directory under the src/ is used to define a group of classes, which have common functionality.</p>
+<p><img alt="" src="../img/img4.png" style="height:10%;width:30%;margin-left:5%" /></p>
+<h2 id="controller">Controller</h2>
+<p>This directory contains classes that act as controllers. This directory contains classes that act as controllers. Controllers are used to decoupling classes and increase reusability. In Symfony, each controller may contain several methods bound to different endpoints, using annotations, which handle requests to the corresponding endpoints.</p>
+<h2 id="message">Message</h2>
+<p>This directory contains classes that define the form of the messages, that will be sent to and received from the queue.</p>
+<h2 id="messagehandler">MessageHandler</h2>
+<p>This directory contains classes whose purpose is to define how consumed messages will be handled. In order to achieve such behavior, each class must implements the <code>Symfony\Component\Messenger\Handler\MessageHandlerInterface</code>
+and thus, it must override the <span style="color:#4EA1EE">__invoke</span> method. Each class in this directory is bound to a class under Message directory. Defining such a binding in Symfony 4 is really easy, since it is defined by the type of the argument provided in the <span style="color:#4EA1EE">__invoke</span> function.</p>
+<h2 id="serializer">Serializer</h2>
+<p>This directory contains classes that are used for abstracting the serialization, or de-serialization, of json objects, arrays, php objects, etc.</p>
+<h2 id="service">Service</h2>
+<p>This directory contains classes which provide a specific and reusable functionality. </p>
+<h2 id="entity">Entity</h2>
+<p>This directory contains classes that represent Doctrine entities and are used for easying integration with the database.</p>
+<h2 id="repository">Repository</h2>
+<p>This directory is auto-updated by Doctrine.</p>
+<h2 id="migrations">Migrations</h2>
+<p>This directory is auto-updated by Doctrine. It contains migrations which can be used to update the database without
+using raw sql queries.</p>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../internals/" class="btn btn-neutral float-right" title="Application's Internals">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../settings/" class="btn btn-neutral" title="Configuring Symfony"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -133,6 +164,10 @@
           <a href="https://github.com/mpekchri/SymfonyRabbitMQ/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
+        <span><a href="../settings/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../internals/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

@@ -57,11 +57,13 @@
                     <li class="toctree-l1"><a class="reference internal" href="../settings/">Configuring Symfony</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../structure/">Project Structure</a>
+                    </li>
+                </ul>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Application's Internals</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#project-structure">Project Structure</a>
-    </li>
     <li class="toctree-l2"><a class="reference internal" href="#producing-messages">Producing Messages</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#basiccontroller">BasicController</a>
@@ -85,10 +87,6 @@
     <li class="toctree-l2"><a class="reference internal" href="#declaring-additional-services">Declaring Additional Services</a>
     </li>
     </ul>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../using/">Using the Application</a>
                     </li>
                 </ul>
       </div>
@@ -126,27 +124,25 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="the-big-picture">The Big Picture</h1>
+                <h1 id="applications-internals">Application's Internals</h1>
 <p>This section provides an extensive look at application's classes
 and how these are combined together to provide the desired functionality.</p>
-<h2 id="project-structure">Project Structure</h2>
-<p>The figure bellow shows part of the project structure, which contains several new classes.
-Each class has a specific responsibility, e.g. consuming data from an API, serializing the data,
-creating messages, etc. More details are provided later in this section.</p>
-<p><img alt="" src="../img/img4.png" style="height:10%;width:30%;margin-left:5%" /></p>
 <h2 id="producing-messages">Producing Messages</h2>
 <p>In order to produce and publish messages to the queue, the following process is necessary.</p>
-<p><img alt="" src="../img/img5.png" style="height:10%;width:90%; margin-left:1%" /></p>
+<p><img alt="" src="../img/img5.png" style="height:10%;width:95%; margin-left:1%" /></p>
 <p>Several classes are involved in the process:</p>
 <h3 id="basiccontroller">BasicController</h3>
-<p>Exposes an endpoint at <code style="color:#EA6113;">/basic/{num_of_messages: int}</code>. Each time a request to this endpoint occurs, Symfony
+<p><img alt="" src="../img/controller.png" style="height:10%;width:30%;margin-left:1%" /></p>
+<p>BasicController exposes an endpoint at <code style="color:#EA6113;">/basic/{num_of_messages: int}</code>. Each time a request to this endpoint occurs, Symfony
 makes sure that BasicController.index() is invoked. There, the controller uses the <span style="color:#EE9B4E">requestHandler-&gt;</span><span style="color:#4EA1EE">sendRequest()</span> function, in order to receive a message (type of array) and a rooting key (type of string). The requestHandler is a <code style="color:#EA6113;">RequestHandler</code> instance. Then, controller uses the function <span style="color:#4EA1EE">dispatch()</span>, provided by Symfony Messernger Component, in order to sent the message to the queue. The process is repeated for num_of_messages times. If num_of_messages is not specified, it is considered to be equal to 1.</p>
 <h3 id="requesthandler">RequestHandler</h3>
-<p>Exposes a public method named <span style="color:#4EA1EE">sendRequest</span>. Each time <span style="color:#4EA1EE">sendRequest()</span> is invoked, a <code style="color:#EA6113;">GET</code> request is sent at <code style="color:#EA6113;">https://a831bqiv1d.execute-api.eu-west-1.amazonaws.com/dev/results</code>. The response is forwarded to a <code style="color:#EA6113;">RequestSerializer</code> instance, in order to construct
+<p><img alt="" src="../img/reqHandler.png" style="height:10%;width:30%;margin-left:1%" /></p>
+<p>RequestHandler exposes a public method named <span style="color:#4EA1EE">sendRequest</span>. Each time <span style="color:#4EA1EE">sendRequest()</span> is invoked, a <code style="color:#EA6113;">GET</code> request is sent at <code style="color:#EA6113;">https://a831bqiv1d.execute-api.eu-west-1.amazonaws.com/dev/results</code>. The response is forwarded to a <code style="color:#EA6113;">RequestSerializer</code> instance, in order to construct
 a message object, type of <code style="color:#EA6113;">MyMessage</code> and a rooting key, type of string. Both the message and the rooting key are
 returned as function's result, to <code style="color:#EA6113;">BasicController</code>.</p>
 <h3 id="requestserializer">RequestSerializer</h3>
-<p>Is responsible for de-serialization of responses, received by <code style="color:#EA6113;">RequestHandler</code>. Each response
+<p><img alt="" src="../img/reqSerializer.png" style="height:10%;width:35%;margin-left:1%" /></p>
+<p>RequestSerializer is responsible for de-serialization of responses, received by <code style="color:#EA6113;">RequestHandler</code>. Each response
 has the following format:</p>
 <pre><code>{
     gatewayEui:     string,
@@ -162,7 +158,8 @@ has the following format:</p>
 The rooting key has the form: <code style="color:#EA6113;">&lt;gateway eui&gt;.&lt;profile&gt;.&lt;endpoint&gt;.&lt;cluster&gt;.&lt;attribute&gt;</code> and is created by the decimal value of the corresponding values in respone object. The convertion from string to decimal is achieved using the
 php build-in function <span style="color:#4EA1EE">hex2dec_string</span>.</p>
 <h3 id="mymessage">MyMessage</h3>
-<p>A common php class which defines the data that each queue message contains.
+<p><img alt="" src="../img/message.png" style="height:10%;width:25%;margin-left:1%" /></p>
+<p>MyMessage is a common php class which defines the data that each queue message contains.
 MyMessage has the following attributes:</p>
 <ul>
 <li>value <code style="color:#EA6113;">int</code></li>
@@ -179,7 +176,8 @@ implement the <code style="color:#EA6113;">Symfony\Component\Messenger\Handler\M
 corresponding class is named <code style="color:#EA6113;">MyMessageHandler</code>.</p>
 <p><img alt="" src="../img/img6.png" style="height:10%;width:95%; margin-left:1%" /></p>
 <h3 id="mymessagehandler">MyMessageHandler</h3>
-<p>A class that implements <code style="color:#EA6113;">Symfony\Component\Messenger\Handler\MessageHandlerInterface</code>.
+<p><img alt="" src="../img/msgHandler.png" style="height:10%;width:30%;margin-left:1%" /></p>
+<p>MyMessageHandler is a class that implements <code style="color:#EA6113;">Symfony\Component\Messenger\Handler\MessageHandlerInterface</code>.
 Here we override the <span style="color:#4EA1EE">__invoke(</span><span style="color:#7B0DAE">MyMessage</span> <span style="color:#EE9B4E">$msg</span><span style="color:#4EAEEE">)</span>, in order to define how to handle
 a message each time it is consumed. In our cases, a consumed message's attributes are used in order to create a <code style="color:#EA6113;">Net2Grid</code> object, which allows us to store those data in the database.</p>
 <!-- <div style="background:#C8E4FF;border-radius:2px;padding:10px 10px; ">
@@ -191,7 +189,8 @@ Note that all we need to do, is declare that the <span style="color:#0E78DA">\__
 <p>Note that all we need to do, is declare that the <span style="color:#0E78DA">__invoke</span> function accepts as argument a </span><code style="color:#7B0DAE;">MyMessage</code> object. This way the Symfony Messenger Component knows to use this specific handler each time a message arrives in the Bus, in order to be consumed.</p>
 </div>
 <h3 id="net2grid">Net2Grid</h3>
-<p>This is a doctrine ORM Entity used to easily save data to the database. The Entity
+<p><img alt="" src="../img/net2grid.png" style="height:10%;width:22%;margin-left:1%" /></p>
+<p>Net2Grid is a doctrine ORM Entity used to easily save data to the database. The Entity
 has the following attributes:</p>
 <ul>
 <li>id        <code style="color:#EA6113;">ID</code></li>
@@ -218,10 +217,8 @@ App\Service\RequestHandler: ['@App\Serializer\RequestSerializer']
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../using/" class="btn btn-neutral float-right" title="Using the Application">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-      
-        <a href="../settings/" class="btn btn-neutral" title="Configuring Symfony"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../structure/" class="btn btn-neutral" title="Project Structure"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -249,10 +246,8 @@ App\Service\RequestHandler: ['@App\Serializer\RequestSerializer']
           <a href="https://github.com/mpekchri/SymfonyRabbitMQ/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../settings/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../structure/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-      
-        <span style="margin-left: 15px"><a href="../using/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

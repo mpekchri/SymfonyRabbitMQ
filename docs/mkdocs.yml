@@ -10,7 +10,7 @@ nav:
     - Configuring Symfony: settings.md
     - Project Structure: structure.md
     - Application's Internals: internals.md
-    - Using the Application: using.md
+    # - Using the Application: using.md
     # - Consuming API: consumingApi.md
     # - De-serializing API responses: serializeApi.md
     # - Sending messages to the queue: sendMessages.md
