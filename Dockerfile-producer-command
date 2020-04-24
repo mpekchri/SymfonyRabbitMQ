@@ -48,4 +48,5 @@ WORKDIR /
 COPY . /
 RUN sudo composer install
 EXPOSE 8000
-CMD sudo php bin/console app:produce-messages --messages=60
+ENV messages 20
+CMD sudo php bin/console app:produce-messages --messages=$messages

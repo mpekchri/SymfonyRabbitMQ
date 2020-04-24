@@ -57,6 +57,27 @@ using a container orchestration tool, user is responsible for manually restartin
 <!-- For more information about using the application it is strongly recommended to
 visit the [Using The Application](using.md) section. -->
 
+
+## Running the application - An Alternative Way
+
+We have already discuss how to produce/consume messages using this application and docker, but in order to produce messages, we are obligated to visit the `localhost:8001/basic/{num: int}` url in a browser. In this subsection, a second approach is demonstrated, which avoids such a requirement.  
+This is achieved using a Symfony Command, as described in [Commands - An alternative way to Produce messages](internals.md#commands-an-alternative-way-to-produce-messages). In order to use this approach we should create the following docker images:
+
+    docker image build -t chris-consumer-img -f Dockerfile-consumer .
+    docker image build -t chris-producer-cmd-img -f Dockerfile-producer-command .
+
+Then we start the containers using:
+
+    docker run --restart=always -d -p 8010:8000 chris-consumer-img:latest
+    docker run -p 8001:8000 chris-producer-cmd-img:latest
+
+Note that using commands provided above two new containers will start. The producer's container will sent 20 messages to the queue and then it will stop executing. If you want to specify another number of messages to be produced, use the following command:
+
+    docker run -e "messages=<NUM_OF_MESSAGES>" -p 8001:8000 chris-producer-cmd-img:latest
+    
+where `<NUM_OF_MESSAGES>` is yours preferable number of messages (e.g. 100).
+
+
 ## Documentation
 Documentation files. which are used to build the current site, can be found at this [github repository](https://github.com/mpekchri/SymfonyRabbitMQ) under the docs/ directory. If you wish to edit the docs, cd into the docs/ directory and run:
 

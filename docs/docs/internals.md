@@ -110,3 +110,18 @@ our services.yaml file.
     # add more service definitions when explicit configuration is needed
     App\Controller\BasicController: ['@App\Service\RequestHandler']
     App\Service\RequestHandler: ['@App\Serializer\RequestSerializer']
+
+
+## Commands - An alternative way to Produce messages
+Symfony framework allows us to define custom commands, which can be later executed using:
+    
+    php bin/console app:command-name
+
+In this project we define such a Command, named `produce-messages`{style="color:#EA6113;"}.
+
+![](img/command.png){: style="height:10%;width:35%;margin-left:1%"}
+
+The `produce-messages`{style="color:#EA6113;"} is defined in the `ProduceMessageCommand` file and is
+being used as an alternative way to produce messages. The command uses the exact same code as [Basic Controller](internals.md#basiccontroller). The only difference is that we do no longer need to visit a url to create new messages. The number of produced messages can be defined using the `--messages` option, which has a default value of 20. Here is an example of the `produce-messages`{style="color:#EA6113;"} usage:
+
+    php bin/console app:produce-messages --messages=60

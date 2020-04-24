@@ -38,6 +38,11 @@ This directory contains classes which provide a specific and reusable functional
 This directory contains classes that represent Doctrine entities and are used for easying integration with the database.
 
 
+## Command
+
+This directory contains classes that define custom commands, which are executable via the terminal. For more info about Symfony's Commands visit this [link](https://symfony.com/doc/current/console.html).
+
+
 ## Repository
 
 This directory is auto-updated by Doctrine.
