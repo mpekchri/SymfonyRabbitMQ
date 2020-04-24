@@ -32,7 +32,7 @@ class MyMessageHandler implements MessageHandlerInterface
     $net2grid = new Net2Grid();
     $net2grid->setValue($msg->getValue());
     $net2grid->setTimestamp($msg->getTimestamp());
-    $net2grid->setGatewaiUi($keyInfo[0]);
+    $net2grid->setGatewayEui($keyInfo[0]);
     $net2grid->setProfile($keyInfo[1]);
     $net2grid->setEndpoint($keyInfo[2]);
     $net2grid->setCluster($keyInfo[3]);
