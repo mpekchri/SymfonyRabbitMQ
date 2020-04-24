@@ -19,7 +19,7 @@ class Net2Grid
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $gatewaiUi;
+    private $gatewayEui;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -54,18 +54,6 @@ class Net2Grid
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getGatewaiUi(): ?string
-    {
-        return $this->gatewaiUi;
-    }
-
-    public function setGatewaiUi(string $gatewaiUi): self
-    {
-        $this->gatewaiUi = $gatewaiUi;
-
-        return $this;
     }
 
     public function getProfile(): ?string
@@ -116,26 +104,38 @@ class Net2Grid
         return $this;
     }
 
-    public function getTimestamp(): ?int
+    public function getTimestamp(): ?string
     {
         return $this->timestamp;
     }
 
-    public function setTimestamp(int $timestamp): self
+    public function setTimestamp(string $timestamp): self
     {
         $this->timestamp = $timestamp;
 
         return $this;
     }
 
-    public function getValue(): ?int
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
-    public function setValue(int $value): self
+    public function setValue(string $value): self
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    public function getGatewayEui(): ?string
+    {
+        return $this->gatewayEui;
+    }
+
+    public function setGatewayEui(string $gatewayEui): self
+    {
+        $this->gatewayEui = $gatewayEui;
 
         return $this;
     }
