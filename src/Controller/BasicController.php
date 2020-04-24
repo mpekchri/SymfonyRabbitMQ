@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\RequestHandler;
-// use App\Message\MyMessage;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Transport\AmqpExt\AmqpStamp;
 
@@ -32,11 +31,11 @@ class BasicController extends AbstractController
     }
 
     /**
-     * @Route("/basic", name="api.request.single")
-     * @Route("/basic/{num}", name="api.request.multiple")
-     * 
-     * TODO: Add description
-     */
+      * @Route("/basic", name="api.request.single")
+      * @Route("/basic/{num}", name="api.request.multiple")
+      * 
+      * TODO: Add description
+      */
     public function index(int $num = 1)
     {
       $messages = [];
