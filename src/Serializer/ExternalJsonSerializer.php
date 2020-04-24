@@ -7,6 +7,14 @@ use Symfony\Component\Messenger\Exception\MessageDecodingFailedException;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use App\Message\MyMessage;
 
+
+/**
+ * This class is used in order to handle the serialization/de-serialization
+ * of messages produced by third-party apps. 
+ * 
+ * NOTE: It is NOT used in this application,
+ * it is just left here for future usage.
+ */
 class ExternalJsonSerializer implements SerializerInterface
 {
 

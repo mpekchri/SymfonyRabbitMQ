@@ -34,21 +34,21 @@ class BasicController extends AbstractController
       * @Route("/basic", name="api.request.single")
       * @Route("/basic/{num}", name="api.request.multiple")
       * 
-      * TODO: Add description
+      * Loops until $num times of iterations are reached. 
+      * In each iteration reqHandler: RequestHandler is used to receive data from the 3rd Party API.
+      * Then, those data are used in order to create a message: MyMessage and a rootingKey: string.
+      * Finally a bus: MessageBusInterface is used to forward the message to the queue.
       */
     public function index(int $num = 1)
     {
       $messages = [];
-      // send requests, receive responses,
-      // construct messages & send them to rabbtimq
+
       for($i=0; $i<$num; $i++){
         $deserializedResponse = $this->reqHandler->sendRequest();
         // extracts two variables: $message and $rootingKey
         extract($deserializedResponse);
-
         $messages[] = $message;
-
-        // dispatch message (sent to bus), including rooting key
+        // dispatch message (send to bus), including rooting key
         $this->bus->dispatch($message,[
           new AmqpStamp($rootingKey)
         ]);

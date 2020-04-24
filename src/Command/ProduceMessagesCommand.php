@@ -13,7 +13,7 @@ use Symfony\Component\Messenger\Transport\AmqpExt\AmqpStamp;
 
 class ProduceMessagesCommand extends Command
 {
-    // the name of the command (the part after "bin/console")
+    // Defines the name of the command (the part after "bin/console")
     protected static $defaultName = 'app:produce-messages';
 
     /**
@@ -41,17 +41,26 @@ class ProduceMessagesCommand extends Command
 
     protected function configure()
     {
-        $this->
-            addOption(
-                'messages',
-                null,
-                InputOption::VALUE_OPTIONAL,
-                'How many messages should be produced',
-                20
-            );
+      // Defines that app:produce-messages may take an argument named 'messages'
+      $this->
+          addOption(
+              'messages',
+              null,
+              InputOption::VALUE_OPTIONAL,
+              'How many messages should be produced',
+              20
+          );
     }
 
-
+    /**
+     * Defines the code that will be executed each time we run this command.
+     * 
+     * Command's logic is identical to BasicController:
+     * Loop until you reach $input->getOption('messages') times of iterations. 
+     * In each iteration reqHandler: RequestHandler is used to receive data from the 3rd Party API.
+     * Then, those data are used in order to create a message: MyMessage and a rootingKey: string.
+     * Finally a bus: MessageBusInterface is used to forward the message to the queue.
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->write('Producing messages ');
@@ -63,7 +72,7 @@ class ProduceMessagesCommand extends Command
     
             $messages[] = $message;
     
-            // dispatch message (sent to bus), including rooting key
+            // dispatch message (send to bus), including rooting key
             $this->bus->dispatch($message,[
               new AmqpStamp($rootingKey)
             ]);

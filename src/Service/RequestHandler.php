@@ -28,11 +28,11 @@ class RequestHandler
   }
 
   /**
-    * Sends a single request and receives the response.
-    * Then, it forwards the response data to a RequestSerializer,
-    * in order to de-serialize them into a message: MyMessage and a rootingKey: string.
-    * It returns the result produced by this de-serialization.
-    */
+   * Sends a single request and receives the response.
+   * Then, it forwards the response data to a RequestSerializer,
+   * in order to de-serialize them into a message: MyMessage and a rootingKey: string.
+   * It returns the result produced by this de-serialization.
+   */
   public function sendRequest(){
     $response = file_get_contents($this->url, false, $this->context);
     return $response !== FALSE ? $this->serializer->deserialize($response) : null;

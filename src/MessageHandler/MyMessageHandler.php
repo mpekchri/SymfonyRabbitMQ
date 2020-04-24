@@ -21,8 +21,12 @@ class MyMessageHandler implements MessageHandlerInterface
     $this->manager = $manager;
   }
 
-  /*
-   * TODO: Add description.
+  /**
+   * MyMessageHandler is a class that implements Symfony\Component\Messenger\Handler\MessageHandlerInterface.
+   * Here we override the __invoke(MyMessage $msg), in order to define how to handle a message 
+   * each time it is consumed. 
+   * In our case, a consumed message's attributes are used in order to create a Net2Grid object,
+   * which allows us to store those data in the database.
    */ 
   public function __invoke(MyMessage $msg)
   {
@@ -37,7 +41,7 @@ class MyMessageHandler implements MessageHandlerInterface
     $net2grid->setEndpoint($keyInfo[2]);
     $net2grid->setCluster($keyInfo[3]);
     $net2grid->setAttribute($keyInfo[4]);
-    
+  
     // dump($msg);
 
     $this->manager->persist($net2grid);
