@@ -86,6 +86,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#declaring-additional-services">Declaring Additional Services</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#commands-an-alternative-way-to-produce-messages">Commands - An alternative way to Produce messages</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -209,6 +211,16 @@ our services.yaml file.</p>
 <pre><code># add more service definitions when explicit configuration is needed
 App\Controller\BasicController: ['@App\Service\RequestHandler']
 App\Service\RequestHandler: ['@App\Serializer\RequestSerializer']
+</code></pre>
+<h2 id="commands-an-alternative-way-to-produce-messages">Commands - An alternative way to Produce messages</h2>
+<p>Symfony framework allows us to define custom commands, which can be later executed using:</p>
+<pre><code>php bin/console app:command-name
+</code></pre>
+<p>In this project we define such a Command, named <code style="color:#EA6113;">produce-messages</code>.</p>
+<p><img alt="" src="../img/command.png" style="height:10%;width:35%;margin-left:1%" /></p>
+<p>The <code style="color:#EA6113;">produce-messages</code> is defined in the <code>ProduceMessageCommand</code> file and is
+being used as an alternative way to produce messages. The command uses the exact same code as <a href="./#basiccontroller">Basic Controller</a>. The only difference is that we do no longer need to visit a url to create new messages. The number of produced messages can be defined using the <code>--messages</code> option, which has a default value of 20. Here is an example of the <code style="color:#EA6113;">produce-messages</code> usage:</p>
+<pre><code>php bin/console app:produce-messages --messages=60
 </code></pre>
               
             </div>

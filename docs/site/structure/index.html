@@ -72,6 +72,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#entity">Entity</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#command">Command</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#repository">Repository</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#migrations">Migrations</a>
@@ -125,7 +127,7 @@ creating messages, etc. More details about the specific use of each class is pro
 these directories. Each directory under the src/ is used to define a group of classes, which have common functionality.</p>
 <p><img alt="" src="../img/img4.png" style="height:10%;width:30%;margin-left:5%" /></p>
 <h2 id="controller">Controller</h2>
-<p>This directory contains classes that act as controllers. This directory contains classes that act as controllers. Controllers are used to decoupling classes and increase reusability. In Symfony, each controller may contain several methods bound to different endpoints, using annotations, which handle requests to the corresponding endpoints.</p>
+<p>This directory contains classes that act as controllers. Controllers are used to decoupling classes and increase reusability. In Symfony, each controller may contain several methods bound to different endpoints, using annotations, which handle requests to the corresponding endpoints.</p>
 <h2 id="message">Message</h2>
 <p>This directory contains classes that define the form of the messages, that will be sent to and received from the queue.</p>
 <h2 id="messagehandler">MessageHandler</h2>
@@ -137,6 +139,8 @@ and thus, it must override the <span style="color:#4EA1EE">__invoke</span> metho
 <p>This directory contains classes which provide a specific and reusable functionality. </p>
 <h2 id="entity">Entity</h2>
 <p>This directory contains classes that represent Doctrine entities and are used for easying integration with the database.</p>
+<h2 id="command">Command</h2>
+<p>This directory contains classes that define custom commands, which are executable via the terminal. For more info about Symfony's Commands visit this <a href="https://symfony.com/doc/current/console.html">link</a>.</p>
 <h2 id="repository">Repository</h2>
 <p>This directory is auto-updated by Doctrine.</p>
 <h2 id="migrations">Migrations</h2>

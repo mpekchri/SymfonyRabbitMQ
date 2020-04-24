@@ -58,6 +58,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#running-the-application">Running the application</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-the-application-an-alternative-way">Running the application - An Alternative Way</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a>
     </li>
     </ul>
@@ -165,6 +167,20 @@ command that starts the consumer's container.</p>
 <!-- For more information about using the application it is strongly recommended to
 visit the [Using The Application](using.md) section. -->
 
+<h2 id="running-the-application-an-alternative-way">Running the application - An Alternative Way</h2>
+<p>We have already discuss how to produce/consume messages using this application and docker, but in order to produce messages, we are obligated to visit the <code>localhost:8001/basic/{num: int}</code> url in a browser. In this subsection, a second approach is demonstrated, which avoids such a requirement.<br />
+This is achieved using a Symfony Command, as described in <a href="internals/#commands-an-alternative-way-to-produce-messages">Commands - An alternative way to Produce messages</a>. In order to use this approach we should create the following docker images:</p>
+<pre><code>docker image build -t chris-consumer-img -f Dockerfile-consumer .
+docker image build -t chris-producer-cmd-img -f Dockerfile-producer-command .
+</code></pre>
+<p>Then we start the containers using:</p>
+<pre><code>docker run --restart=always -d -p 8010:8000 chris-consumer-img:latest
+docker run -p 8001:8000 chris-producer-cmd-img:latest
+</code></pre>
+<p>Note that using commands provided above two new containers will start. The producer's container will sent 20 messages to the queue and then it will stop executing. If you want to specify another number of messages to be produced, use the following command:</p>
+<pre><code>docker run -e "messages=&lt;NUM_OF_MESSAGES&gt;" -p 8001:8000 chris-producer-cmd-img:latest
+</code></pre>
+<p>where <code>&lt;NUM_OF_MESSAGES&gt;</code> is yours preferable number of messages (e.g. 100).</p>
 <h2 id="documentation">Documentation</h2>
 <p>Documentation files. which are used to build the current site, can be found at this <a href="https://github.com/mpekchri/SymfonyRabbitMQ">github repository</a> under the docs/ directory. If you wish to edit the docs, cd into the docs/ directory and run:</p>
 <pre><code>make serve-docs
@@ -237,5 +253,5 @@ be installed in your system.</p>
 
 <!--
 MkDocs version : 1.1
-Build Date UTC : 2020-04-23 16:06:53
+Build Date UTC : 2020-04-24 14:34:01
 -->
