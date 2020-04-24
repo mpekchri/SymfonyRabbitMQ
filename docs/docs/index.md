@@ -79,7 +79,7 @@ where `<NUM_OF_MESSAGES>` is yours preferable number of messages (e.g. 100).
 
 
 ## Documentation
-Documentation files. which are used to build the current site, can be found at this [github repository](https://github.com/mpekchri/SymfonyRabbitMQ) under the docs/ directory. If you wish to edit the docs, cd into the docs/ directory and run:
+Documentation files, which are used to build the current site, can be found at this [github repository](https://github.com/mpekchri/SymfonyRabbitMQ) under the docs/ directory. If you wish to edit the docs, cd into the docs/ directory and run:
 
     make serve-docs
 
