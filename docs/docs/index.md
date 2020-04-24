@@ -19,7 +19,19 @@ In order to install this application, your system must fulfill these requirement
 
 * `Docker`{style="color:#EA6113;"} version 19.03.5 or higher
 
-## Running the application
+## Running the application - TL;DR
+If you are in a hurry to run the application without reading much of the docs,
+then execute the following commands (inside the project directory):
+
+    docker image build -t chris-consumer-img -f Dockerfile-consumer .
+    docker image build -t chris-producer-cmd-img -f Dockerfile-producer-command .
+    docker run --restart=always -d -p 8010:8000 chris-consumer-img:latest
+    docker run -e "messages=40" -p 8001:8000 chris-producer-cmd-img:latest
+
+That's it! You have just sent 40 messages to the queue and consumed some of them.
+
+
+## Running the application - Basic Approach
 Using docker is really easy to start a producer and a consumer service. Open a terminal
 and cd in the project folder (where the Dockerfile-producer & Dockerfile-consumer exist).
 Start by building the necessary images (skip if already done):

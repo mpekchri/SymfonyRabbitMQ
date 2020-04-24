@@ -56,7 +56,9 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#running-the-application">Running the application</a>
+    <li class="toctree-l2"><a class="reference internal" href="#running-the-application-tldr">Running the application - TL;DR</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-the-application-basic-approach">Running the application - Basic Approach</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#running-the-application-an-alternative-way">Running the application - An Alternative Way</a>
     </li>
@@ -129,7 +131,16 @@ Finally, the new entity is used, in order to save this information in a mysql da
 <ul>
 <li><code style="color:#EA6113;">Docker</code> version 19.03.5 or higher</li>
 </ul>
-<h2 id="running-the-application">Running the application</h2>
+<h2 id="running-the-application-tldr">Running the application - TL;DR</h2>
+<p>If you are in a hurry to run the application without reading much of the docs,
+then execute the following commands (inside the project directory):</p>
+<pre><code>docker image build -t chris-consumer-img -f Dockerfile-consumer .
+docker image build -t chris-producer-cmd-img -f Dockerfile-producer-command .
+docker run --restart=always -d -p 8010:8000 chris-consumer-img:latest
+docker run -e "messages=40" -p 8001:8000 chris-producer-cmd-img:latest
+</code></pre>
+<p>That's it! You have just sent 40 messages to the queue and consumed some of them.</p>
+<h2 id="running-the-application-basic-approach">Running the application - Basic Approach</h2>
 <p>Using docker is really easy to start a producer and a consumer service. Open a terminal
 and cd in the project folder (where the Dockerfile-producer &amp; Dockerfile-consumer exist).
 Start by building the necessary images (skip if already done):</p>
@@ -182,7 +193,7 @@ docker run -p 8001:8000 chris-producer-cmd-img:latest
 </code></pre>
 <p>where <code>&lt;NUM_OF_MESSAGES&gt;</code> is yours preferable number of messages (e.g. 100).</p>
 <h2 id="documentation">Documentation</h2>
-<p>Documentation files. which are used to build the current site, can be found at this <a href="https://github.com/mpekchri/SymfonyRabbitMQ">github repository</a> under the docs/ directory. If you wish to edit the docs, cd into the docs/ directory and run:</p>
+<p>Documentation files, which are used to build the current site, can be found at this <a href="https://github.com/mpekchri/SymfonyRabbitMQ">github repository</a> under the docs/ directory. If you wish to edit the docs, cd into the docs/ directory and run:</p>
 <pre><code>make serve-docs
 </code></pre>
 <p>This command will start a local development server, which can be used to render the edited docs, in realtime.
@@ -253,5 +264,5 @@ be installed in your system.</p>
 
 <!--
 MkDocs version : 1.1
-Build Date UTC : 2020-04-24 14:34:01
+Build Date UTC : 2020-04-24 16:46:21
 -->
