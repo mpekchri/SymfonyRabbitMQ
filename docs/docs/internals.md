@@ -92,14 +92,14 @@ Note that all we need to do, is declare that the <span style="color:#0E78DA">\__
 Net2Grid is a doctrine ORM Entity used to easily save data to the database. The Entity
 has the following attributes:
 
-* id        `ID`{style="color:#EA6113;"}
-* gatewaiUi `STRING`{style="color:#EA6113;"}
-* profile   `STRING`{style="color:#EA6113;"}
-* endpoint  `STRING`{style="color:#EA6113;"}
-* cluster   `STRING`{style="color:#EA6113;"}
-* attribute `STRING`{style="color:#EA6113;"}
-* value     `BIGINT`{style="color:#EA6113;"}
-* timestamp `BIGINT`{style="color:#EA6113;"}
+* id            `ID`{style="color:#EA6113;"}
+* gatewayEui    `STRING`{style="color:#EA6113;"}
+* profile       `STRING`{style="color:#EA6113;"}
+* endpoint      `STRING`{style="color:#EA6113;"}
+* cluster       `STRING`{style="color:#EA6113;"}
+* attribute     `STRING`{style="color:#EA6113;"}
+* value         `BIGINT`{style="color:#EA6113;"}
+* timestamp     `BIGINT`{style="color:#EA6113;"}
 
 
 ## Declaring Additional Services
