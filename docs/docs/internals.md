@@ -4,7 +4,7 @@ and how these are combined together to provide the desired functionality.
 
 | ![](img/dependencies.png) | 
 |:--:| 
-| *Depedencies between classes* |  
+| *Dependencies between classes* |  
 
 <br/>
 
