@@ -2,6 +2,12 @@
 This section provides an extensive look at application's classes
 and how these are combined together to provide the desired functionality.
 
+| ![](img/dependencies.png) | 
+|:--:| 
+| *Depedencies between classes* |  
+
+<br/>
+
 ## Producing Messages
 In order to produce and publish messages to the queue, the following process is necessary.
 
